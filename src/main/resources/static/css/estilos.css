@@ -1,0 +1,93 @@
+body{
+    background-color: aquamarine;
+    font-family: sans-serif;
+    margin: 0;
+}
+/* Esto es un comentario! */
+header {
+    position: fixed;
+    background-color: blue;
+    color: white;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    padding: 0 10px;
+}
+
+aside {
+    position: fixed;
+    background-color: chartreuse;
+    color: black;
+    top: 90px;
+    left: 0;
+    width: 20%;
+    bottom: 20px;
+    padding: 10px;
+}
+
+section {
+    position: fixed;
+    overflow-y: scroll;
+    background-color: bisque;
+    color: black;
+    top: 90px;
+    left: 20%;
+    width: 80%;
+    bottom: 20px;
+    padding: 10px; 
+}
+
+footer {
+    position: fixed;
+    background-color: bisque;
+    text-align: center;
+    color: black;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    height: 20px; 
+}
+
+.navegacion {
+    display : flex;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.nav-link{
+    color: white;
+    text-decoration: none;
+}
+
+.logo{
+    font-size: 32px;
+    font-weight: bold;
+    font-family: cursive;
+    padding: 0 40px;
+    line-height: 90px;
+}
+
+.nav-menu{
+    display: flex;
+    margin-right: 40px;
+    list-style: none;
+    
+}
+
+.nav-menu-item{
+    font-size: 18px;
+    margin: 0 10px;
+    line-height: 90px;
+    
+}
+
+.nav-menu-link:hover{
+    background-color: cyan;
+}
+
+.nav-menu-link{
+    background-color: crimson;
+    padding: 5px;
+    border-radius: 10px;
+}
