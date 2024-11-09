@@ -53,12 +53,8 @@ public class HorarioServiceImpl implements HorarioService {
     }
 
     @Override
-    public Horario getProducto(Horario horario) {
+    public Horario getHorario(Horario horario) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-  
-
-  
 
 }

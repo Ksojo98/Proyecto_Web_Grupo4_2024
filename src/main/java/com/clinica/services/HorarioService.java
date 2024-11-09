@@ -17,7 +17,7 @@ public interface HorarioService {
     
     public List<Horario> getHorarios(boolean activos);
     // Se obtiene un Producto, a partir del id de un producto
-    public Horario getProducto(Horario horario);
+    public Horario getHorario(Horario horario);
     
     // Se inserta un nuevo producto si el id del producto esta vacío
     // Se actualiza un producto si el id del producto NO esta vacío
