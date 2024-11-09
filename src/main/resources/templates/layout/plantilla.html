@@ -1,10 +1,6 @@
 <!DOCTYPE html>
-<!--
-Mi primera página dinamica
--->
 <html xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:th="http://www.thymeleaf.org/1999/xhtml" 
-      >
+      xmlns:th="http://www.thymeleaf.org/1999/xhtml">
     <head th:fragment="head">
         <title>BOHDI WELLNESS</title>
         <meta charset="UTF-8"/>
@@ -17,111 +13,48 @@ Mi primera página dinamica
     </head>
     <body>   
         <header th:fragment="header" class="header">
-            <nav class="navbar navbar-expand-sm navbar-dark bg-dark"> 
+            <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f8f9fa;"> 
                 <div class="container">
-                    <a th:href="@{/}"class="navbar-brand">[[#{aplicacion.titulo}]]</a>
+                    <a th:href="@{/}" class="navbar-brand">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/techshop-fbf53.appspot.com/o/techshop%2Flogos%2Flogo_clinica.png?alt=media&token=b721ffab-4715-456c-8421-3536db5a48f0" alt="Bodhi Wellness Logo" width="150" height="50" class="d-inline-block align-top"> <!-- Aumenta el tamaño aquí -->
+                    </a>
                     <button class="navbar-toggler"
                             data-bs-toggle="collapse"
                             data-bs-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon">
-
-                        </span>
+                        <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div id="navbarCollapse"
-                         class="collapse navbar-collapse justify-content-between">
-                        <ul class="navbar-nav">
+                    <div id="navbarCollapse" class="collapse navbar-collapse">
+                        <ul class="navbar-nav ms-auto">
                             <li class="nav-item px-2">
-                                <a class= "nav-link" th:href="@{/categoria/listado}">[[#{plantilla.categorias}]]</a>
+                                <a class="nav-link text-success fw-bold" th:href="@{/citas}">Citas</a>
                             </li>
                             <li class="nav-item px-2">
-                                <a class= "nav-link" th:href="@{/producto/listado}">[[#{plantilla.productos}]]</a>
+                                <a class="nav-link text-success fw-bold" th:href="@{/promociones}">Promociones</a>
                             </li>
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle"
-                                   data-bs-toggle="dropdown"
-                                   href="#"
-                                   role="button"
-                                   aria-expanded="false"
-                                   >
-                                    [[#{plantilla.extras}]]
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item" th:href="@{/pruebas/listados}">[[#{plantilla.asociaciones}]]</a> </li>
-                                    <li><a class="dropdown-item" th:href="@{/pruebas/listados2}">[[#{plantilla.consultas}]]</a> </li>
-                                    <li><a class="dropdown-item" th:href="@{/pruebas/principal}">[[#{plantilla.reportes}]]</a> </li>
-
-                                </ul>
+                            <li class="nav-item px-2">
+                                <a class="nav-link text-success fw-bold" th:href="@{/productos}">Productos</a>
                             </li>
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle"
-                                   data-bs-toggle="dropdown"
-                                   href="#"
-                                   role="button"
-                                   aria-expanded="false"
-                                   >
-                                    [[#{plantilla.admin}]]
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item" th:href="@{/usuario/listado}">[[#{plantilla.usuarios}]]</a> </li>
-                                    <li><a class="dropdown-item" th:href="@{/constante/listado}">[[#{plantilla.constantes}]]</a> </li>
-                                    <li class="submenu submenu-md dropend">
-                                        <a class="dropdown-item dropdown-toggle"
-                                           data-bs-toggle="dropdown"
-                                           href="#"
-                                           role="button"
-                                           onclick="event.stopPropagation();"
-                                           aria-expanded="false"
-                                           >
-                                            [[#{plantilla.seguridad}]]
-                                        </a>                                   
-                                        <ul class="dropdown-menu dropdown-menu-dark">                                          
-                                            <li><a class="dropdown-item" th:href="@{/role/listado}">[[#{plantilla.troles}]]</a> </li>   
-                                            <li><a class="dropdown-item" th:href="@{/usuario_role/asignar}">[[#{plantilla.permisos}]]</a> </li>  
-                                            <li><a class="dropdown-item" th:href="@{/ruta/asignar}">[[#{plantilla.rutas}]]</a> </li>  
-
-                                        </ul>
-                                    </li>
-
-                                </ul>
+                            <li class="nav-item px-2">
+                                <a class="nav-link text-success fw-bold" th:href="@{/carrito}">Carrito</a>
+                            </li>
+                            <li class="nav-item px-2">
+                                <a class="nav-link text-success fw-bold" th:href="@{/membresias}">Membresías</a>
                             </li>
                         </ul>
-
-
-
-
-                        <ul class="navbar-nav">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle"
-                                   data-bs-toggle="dropdown"
-                                   href="#"
-                                   role="button"
-                                   aria-expanded="false"
-                                   >
-                                    [[#{plantilla.idioma}]]
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item" th:href="@{/(lang=es)}">Español</a> </li>
-                                    <li><a class="dropdown-item" th:href="@{/(lang=en)}">English</a> </li>
-                                    <li><a class="dropdown-item" th:href="@{/(lang=pt)}">Portugaise</a> </li>
-                                    <li><a class="dropdown-item" th:href="@{/(lang=fr)}">Français</a> </li>
-
-                                </ul>
-                            </li>  
-                        </ul>
-
-
+                        <a th:href="@{/notificaciones}" class="nav-link">
+                            <i class="fas fa-bell text-success"></i>
+                        </a>
                     </div>
                 </div>
             </nav>
-
         </header>
 
+        <div class="bg-success text-white text-center py-3">
+            <h1>NUESTRA VISIÓN</h1>
+        </div>
 
-        <footer th:fragment="footer" class="p-2 mt-5 bg-info text-white">
-            <p class="lead text-center">&copy;[[#{plantilla.derechos}]] </p>
+        <footer th:fragment="footer" class="p-2 text-white text-center" style="background-color: #6ab04c;">
+            <p class="lead">&copy;[[#{plantilla.derechos}]]</p>
         </footer>
-
     </body>
 </html>

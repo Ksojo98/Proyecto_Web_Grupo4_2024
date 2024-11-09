@@ -18,7 +18,7 @@ public interface FirebaseStorageService {
     final String BucketName = "techshop-m-7ff05.appspot.com";
 
     //Esta es la ruta básica de este proyecto Techshop
-    final String rutaSuperiorStorage = "techshop";
+    final String rutaSuperiorStorage = "BOHDI WELLNESS";
 
     //Ubicación donde se encuentra el archivo de configuración Json
     final String rutaJsonFile = "firebase";

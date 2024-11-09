@@ -1,46 +1,35 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
-*/
-/* 
-    Created on : Sep 25, 2024, 5:38:55 PM
-    Author     : Moke
-*/
-body{
-
-    background-color: lightpink;
+body {
+    background-color: #f0f5e1; /* Fondo suave con tono verde claro */
     font-family: sans-serif;
     margin: 0;
-
 }
-/*comentario*/
-header{
+
+header {
     position: fixed;
-    background-color: blue;
+    background-color: #6ab04c; /* Verde natural para el encabezado */
     color: white;
     top: 0;
     left: 0;
     width: 100%;
     height: 90px;
     padding: 0 10px;
-
 }
-aside{
 
+aside {
     position: fixed;
-    background-color: #00ccff;
+    background-color: #a3d39c; /* Verde suave para la barra lateral */
     color: black;
     top: 90px;
     left: 0;
     width: 20%;
     bottom: 90px;
     padding: 10px;
-
 }
-section{
+
+section {
     position: fixed;
     overflow-y: scroll;
-    background-color: bisque;
+    background-color: #f6f5e1; /* Fondo natural para la sección principal */
     color: black;
     top: 90px;
     left: 20%;
@@ -49,9 +38,9 @@ section{
     padding: 10px;
 }
 
-footer{
+footer {
     position: fixed;
-    background-color: black;
+    background-color: #4d8a3a; /* Verde oscuro para el pie de página */
     text-align: center;
     color: white;
     left: 0%;
@@ -60,43 +49,44 @@ footer{
     height: 20px;
 }
 
-.navegacion{
+.navegacion {
     display: flex;
     justify-content: space-between;
     margin: 0 auto;    
 }
 
-.nav-link{
+.nav-link {
     color: white;
     text-decoration: none;
 }
-.logo{
+
+.logo {
     font-size: 32px;
     font-weight: bold;
     font-family: cursive;
     padding: 0 40px;
     line-height: 90px;
-    
 }
-.nav-menu{
-    
+
+.nav-menu {
     display: flex;
     margin-right: 40px;
     list-style: none;
-    
 }
-.nav-menu-item{
+
+.nav-menu-item {
     font-size: 18px;
     margin: 0 10px;
     line-height: 90px;
-    
 }
-.nav-menu-link:hover{ 
-    background-color: chartreuse;
-    
+
+.nav-menu-link:hover { 
+    background-color: #a0d468; /* Verde claro para el hover en el menú */
 }
-.nav-menu-link{ 
-    background-color: #9999ff;
+
+.nav-menu-link { 
+    background-color: #8bc34a; /* Verde medio para los enlaces del menú */
+    color: white;
     padding: 5px;
     border-radius: 5px;
 }
