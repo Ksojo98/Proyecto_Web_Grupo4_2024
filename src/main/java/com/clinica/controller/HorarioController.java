@@ -1,8 +1,13 @@
-package com.tienda.controller;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.clinica.controller;
 
-import com.tienda.domain.Producto;
-import com.tienda.services.ProductoService;
-import com.tienda.services.impl.FirebaseStorageServiceImpl;
+
+import com.clinica.domain.Horario;
+import com.clinica.services.HorarioService;
+import com.clinica.services.impl.FirebaseStorageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,48 +19,43 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/producto")
-public class ProductoController {
+public class HorarioController {
     
     
     @Autowired
-    private ProductoService productoService;
+    private HorarioService horarioService;
     
     @GetMapping("/listado")
     public String Listado(Model model){
-        var lista=productoService.getProductos(false);
+        var lista=horarioService.getHorarios(false);
         
         model.addAttribute("productos", lista);
         model.addAttribute("totalProductos", lista.size());
     return "/producto/listado";
     }
+    
+    //aca estoy codeando
     @Autowired
     private FirebaseStorageServiceImpl firebaseStorageService;
     
     @PostMapping("/guardar")
-    public String productoGuardar(Producto producto,
+    public String horarioGuardar(Horario horario,
             @RequestParam("imagenFile") MultipartFile imagenFile) {        
-        if (!imagenFile.isEmpty()) {
-            productoService.save(producto);
-            producto.setRutaImagen(
-                    firebaseStorageService.cargaImagen(
-                            imagenFile, 
-                            "producto", 
-                            producto.getIdProducto()));
-        }
-        productoService.save(producto);
+       
+        horarioService.save(horario);
         return "redirect:/producto/listado";
     }
 
     @GetMapping("/eliminar/{idProducto}")
-    public String productoEliminar(Producto producto) {
-        productoService.delete(producto);
+    public String horarioEliminar(Horario horario) {
+        horarioService.delete(horario);
         return "redirect:/producto/listado";
     }
 
     @GetMapping("/modificar/{idProducto}")
-    public String productoModificar(Producto producto, Model model) {
-        producto = productoService.getProducto(producto);
-        model.addAttribute("producto", producto);
+    public String horarioModificar(Horario horario, Model model) {
+        horario = horarioService.getProducto(horario);
+        model.addAttribute("producto", horario);
         return "/producto/modifica";
     }
 }
