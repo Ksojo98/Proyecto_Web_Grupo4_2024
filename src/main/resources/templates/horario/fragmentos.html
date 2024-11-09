@@ -32,7 +32,7 @@
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header bg-info text-white">
-                            <h5 class="modal-title">[[#{categoria.agregar}]]</h5>
+                            <h5 class="modal-title">[[#{horario.agregar}]]</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div> 
                         <form th:action="@{/categoria/guardar}"
@@ -42,7 +42,7 @@
                               enctype="multipart/form-data">
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label for="descripcion">[[#{categoria.descripcion}]]</label>
+                                    <label for="descripcion">[[#{horario.descripcion}]]</label>
                                     <input type="text" class="form-control" 
                                            name="descripcion" required="true"/>
                                 </div>
@@ -51,14 +51,7 @@
                                     <input class="form-check-input" type="checkbox" 
                                            name="activo" id="activo"/>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="imagen">[[#{categoria.rutaImagen}]]</label>
-                                    <input class="form-control" 
-                                           type="file" 
-                                           name="imagenFile" 
-                                           onchange="readURL(this);"/>
-                                    <img id="blah" src="#" alt="your image" height="200"/>
-                                </div>
+                            
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-primary" type="submit">Guardar</button>
@@ -71,18 +64,18 @@
 
 
         <!-- 4 Fragmento que se utiliza en la página modifca.html -->
-        <section th:fragment="editarCategoria">
+        <section th:fragment="editarHorario">
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <form method="POST"
-                          th:action="@{/categoria/guardar}" 
-                          th:object="${categoria}"
+                          th:action="@{/horario/guardar}" 
+                          th:object="${horario}"
                           class="was-validated"                          
                           enctype="multipart/form-data">
-                        <input type="hidden" name="idCategoria" th:field="*{idCategoria}"/>
+                        <input type="hidden" name="idHorario" th:field="*{idHorario}"/>
                         <input type="hidden" name="rutaImagen" th:field="*{rutaImagen}"/>
-                        <section th:replace="~{categoria/fragmentos :: botonesEditar}"/>
+                        <section th:replace="~{horario/fragmentos :: botonesEditar}"/>
                         <div id=details>
                             <div class="container">
                                 <div class="row">
@@ -93,13 +86,13 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="mb-3">
-                                                    <label for="descripcion">[[#{categoria.descripcion}]]</label>
+                                                    <label for="descripcion">[[#{horario.descripcion}]]</label>
                                                     <input type="text" class="form-control" 
                                                            name="descripcion" th:field="*{descripcion}"
                                                            required="true">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="activo">[[#{categoria.activo}]]</label>
+                                                    <label for="activo">[[#{horario.activo}]]</label>
                                                     <input class="form-check-input" 
                                                            type="checkbox" 
                                                            name="activo" 
@@ -107,10 +100,10 @@
                                                            th:field="*{activo}">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="imagen">[[#{categoria.rutaImagen}]]</label>
+                                                    <label for="imagen">[[#{horario.rutaImagen}]]</label>
                                                     <input class="form-control" type="file" name="imagenFile"
                                                            onchange="readURL(this);" />
-                                                    <img id="blah" th:src="@{${categoria.rutaImagen}}" alt="your image" height="200"/>
+                                                    <img id="blah" th:src="@{${horario.rutaImagen}}" alt="your image" height="200"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -127,12 +120,12 @@
             <div class="container py-4 mb-4 bg-light">
                 <div class="row">
                     <div class="col-md-4 d-grid">
-                        <a th:href="@{/categoria/listado}" class="btn btn-primary">
+                        <a th:href="@{/horario/listado}" class="btn btn-primary">
                             <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">                                
-                        <a th:href="@{/categoria/eliminar/}+${categoria.idCategoria}"
+                        <a th:href="@{/horario/eliminar/}+${horario.idHorario}"
                            class="btn btn-danger">
                             <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
                         </a>
@@ -146,37 +139,36 @@
             </div>
         </section>
 
-        <section th:fragment="listadoCategorias">
+        <section th:fragment="listadoHorarios">
             <div class="container">
                 <div class="row">
                     <div class="col-md-9">
                         <div class="card">
                             <div class="card-header">
-                                <h4>[[#{categoria.listado}]]</h4>
+                                <h4>[[#{horario.listado}]]</h4>
                             </div>
                             <div class="card-body">
-                                <div th:if="${categorias != null and !categorias.empty}">
+                                <div th:if="${horarios != null and !horarios.empty}">
                                     <table class="table table-striped table-hover">
                                         <thead class="table-dark">
                                             <tr>
                                                 <th>#</th>
-                                                <th>[[#{categoria.descripcion}]]</th>
-                                                <th>[[#{categoria.activo}]]</th>
-                                                <th>[[#{categoria.rutaImagen}]]</th>
+                                                <th>[[#{horario.descripcion}]]</th>
+                                                <th>[[#{horario.activo}]]</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="c : ${categorias}">
-                                                <td>[[${c.idCategoria}]]</td>
+                                            <tr th:each="c : ${horarios}">
+                                                <td>[[${c.idHorario}]]</td>
                                                 <td>[[${c.descripcion}]]</td>
                                                 <td th:text="${c.activo} ? 'Activo':'Inactivo'"></td>
                                                 <td><img th:src="@{${c.rutaImagen}}" height="75"/></td>
                                                 <td>
-                                                    <a class="btn btn-danger" th:href="@{/categoria/eliminar} + ${c.idCategoria}">
+                                                    <a class="btn btn-danger" th:href="@{/horario/eliminar} + ${c.idHorario}">
                                                         <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
                                                     </a>
-                                                    <a class="btn btn-warning" th:href="@{/categoria/modificar} + ${c.idCategoria}">
+                                                    <a class="btn btn-warning" th:href="@{/horario/modificar} + ${c.idHorario}">
                                                         <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
                                                     </a>
                                                 </td>
@@ -184,7 +176,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div th:if="${categorias == null or categorias.empty}">
+                                <div th:if="${horarios == null or horarios.empty}">
                                     <h4>[[#{lista.vacia}]]</h4>
                                 </div>
                             </div>
@@ -193,8 +185,8 @@
                     <div class="col-md-3">
                         <div class="card text-center text-white bg-success m-3">
                             <div class="card-body">
-                                <h3>[[#{categoria.total}]]</h3>
-                                <h4><i class="fas fa-layer-group"></i> [[${totalCategorias}]]</h4>
+                                <h3>[[#{horario.total}]]</h3>
+                                <h4><i class="fas fa-layer-group"></i> [[${totalHorarios}]]</h4>
                             </div>  
                         </div>
                     </div>
