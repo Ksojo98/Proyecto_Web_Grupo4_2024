@@ -15,10 +15,10 @@ FLUSH PRIVILEGES;
 /* Se selecciona la base de datos BOHDIWELLNESS */
 USE BOHDIWELLNESS;
 
-/* La tabla horarios contiene horarios de actividades */
 CREATE TABLE horarios (
   id_horario INT NOT NULL AUTO_INCREMENT,
-  descripcion VARCHAR(30) NOT NULL,
+  dia date NOT NULL,
+  hora varchar(30) not null,
   activo BOOLEAN,
   PRIMARY KEY (id_horario)
 ) ENGINE = InnoDB

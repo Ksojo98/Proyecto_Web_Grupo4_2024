@@ -26,15 +26,21 @@ public class Horario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_horario;
-    private String descripcion;
+    private String dia;
+    private String hora;
     private boolean activo;
+    
+    
+    
     
     
 }
 
-/*CREATE TABLE horarios (
+/*
+CREATE TABLE horarios (
   id_horario INT NOT NULL AUTO_INCREMENT,
-  descripcion VARCHAR(30) NOT NULL,
+  dia date NOT NULL,
+  hora varchar(30) not null,
   activo BOOLEAN,
   PRIMARY KEY (id_horario)
 ) ENGINE = InnoDB
