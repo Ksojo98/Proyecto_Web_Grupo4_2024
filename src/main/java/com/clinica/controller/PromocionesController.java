@@ -8,6 +8,6 @@ public class PromocionesController {
 
     @GetMapping("/promociones/cliente")
     public String promocionesCliente() {
-        return "promocionesCliente/promocionesCliente"; // Asegúrate de que la ruta es la correcta
+        return "promocionesCliente/listado"; // Asegúrate de que el nombre coincide con listado.html
     }
 }
