@@ -29,11 +29,7 @@ public class Horario implements Serializable {
     private String dia;
     private String hora;
     private boolean activo;
-    
-    
-    
-    
-    
+
 }
 
 /*

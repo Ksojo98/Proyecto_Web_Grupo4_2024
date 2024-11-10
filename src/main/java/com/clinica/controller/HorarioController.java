@@ -6,6 +6,7 @@ package com.clinica.controller;
 
 import com.clinica.domain.Horario;
 import com.clinica.services.HorarioService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,31 +20,44 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/horarios")  // PRUEBA
 public class HorarioController {
 
-    @GetMapping("/admin")
-    public String mostrarHorariosAdmin(Model model) {
-        var listaHorarios = horarioService.getHorarios(false);
-        model.addAttribute("horarios", listaHorarios);
-        return "horarioAdmin/listado";
-    }
-
     @Autowired
     private HorarioService horarioService;
 
-    // Listado para usuarios o admin
-  @GetMapping("/listado")
-public String Listado(Model model) {
-    var lista = horarioService.getHorarios(false);
-    model.addAttribute("horarios", lista);
-    model.addAttribute("diasSemana", List.of("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"));
-    model.addAttribute("totalHorarios", lista.size());
-    return "horarioAdmin/listado";
-}
+    public HorarioController(HorarioService horarioService) {
+        this.horarioService = horarioService;
+    }
 
+    @GetMapping("/admin")
+    public String mostrarHorarios(Model model) {
+        // Lista de días de la semana
+        List<String> diasSemana = List.of("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado");
+
+        // Obtener horarios desde el servicio
+        List<Horario> horarios = horarioService.getHorarios(true); 
+
+        // Agregar al modelo
+        model.addAttribute("diasSemana", diasSemana);
+        model.addAttribute("horarios", horarios);
+        return "horarioAdmin/listado"; 
+    }
+
+    // Listado para usuarios o admin
+    @GetMapping("/horarios/admin")
+    public String listarHorarios(Model model) {
+        List<Horario> horarios = horarioService.getHorarios(true); // Solo los activos
+        List<String> diasSemana = List.of("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado");
+
+        model.addAttribute("horarios", horarios);
+        model.addAttribute("diasSemana", diasSemana);
+        model.addAttribute("horarios", horarios != null ? horarios : new ArrayList<>());
+
+        return "horarioAdmin/listado"; 
+    }
 
     @PostMapping("/guardar")
     public String guardar(Horario horario) {
         horarioService.save(horario);
-        return "redirect:/horarios/listado"; // Redirige a la vista correcta después de guardar
+         return "redirect:/horarios/admin"; 
     }
 
     @GetMapping("/eliminar/{id_horario}")
@@ -61,6 +75,6 @@ public String Listado(Model model) {
         horario.setId_horario(idHorario);
         horario = horarioService.getHorario(horario);
         model.addAttribute("horario", horario);
-        return "horarioAdmin/modifica"; // Ajuste a la subcarpeta correcta
+        return "horarioAdmin/modifica"; 
     }
 }
