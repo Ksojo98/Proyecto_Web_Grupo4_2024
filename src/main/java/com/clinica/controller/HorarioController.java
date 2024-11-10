@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
-@RequestMapping("/horarios")  // Cambio aquí: Rutas más semánticas para horarios
+@RequestMapping("/horarios")  // PRUEBA
 public class HorarioController {
 
     @GetMapping("/admin")
