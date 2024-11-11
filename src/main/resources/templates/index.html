@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--
+Mi primera página dinamica
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org/1999/xhtml">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Bohdi Wellness</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>   
+        <header th:replace="~{layout/plantilla :: header}">
+        </header>
+
+        <div class="container my-5">
+            <h1 class="text-center text-success fw-bold">Acerca de BOHDI WELLNESS</h1>
+            <hr>
+
+                <div class="my-5">
+                    <h2 class="text-center text-success fw-bold">Misión:</h2>
+                    <p class="text-center">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                </div>
+
+                <div class="my-5">
+                    <h2 class="text-center text-success fw-bold">Visión:</h2>
+                    <p class="text-center">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                </div>
+
+                <div class="my-5">
+                    <h2 class="text-center text-success fw-bold">Contacto:</h2>
+                    <p class="text-center">
+                        Correo electrónico: <a href="mailto:info@bohdiwellness.com">info@bohdiwellness.com</a><br>
+                            Instagram <a href="https://www.instagram.com/terafitcr_?igsh=MW5uN3lrcmM3MWhxNA=="> profile </a><br>
+                            Teléfono: +506 84563253
+                    </p>
+                </div>
+
+                <div class="my-4">
+                    <h2 class="text-center text-success fw-bold">Ubicación:</h2>
+                    <p class="text-center">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d840.07404221215!2d-83.9054075748881!3d9.849604073066752!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0df12d026dae9%3A0xf68488045da71045!2sTuto&#39;s%20Fish%20Pescader%C3%ADa%20y%20Cevichera!5e1!3m2!1ses-419!2scr!4v1731129133779!5m2!1ses-419!2scr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </p>
+                </div>
+        </div>
+
+        <footer th:replace="~{layout/plantilla :: footer}">
+        </footer>
+    </body>
+</html>
+
