@@ -12,10 +12,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import lombok.Data;
 
-/**
- *
- * @author Moke
- */
+
 
 @Data
 @Entity
@@ -29,7 +26,6 @@ public class Horario implements Serializable {
     private String dia;
     private String hora;
     private boolean activo;
-
 }
 
 /*
@@ -41,4 +37,6 @@ CREATE TABLE horarios (
   PRIMARY KEY (id_horario)
 ) ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
+
+testttt
 */

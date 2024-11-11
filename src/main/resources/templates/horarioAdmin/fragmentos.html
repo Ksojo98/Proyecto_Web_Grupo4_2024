@@ -24,7 +24,6 @@
         </section>
 
 
-        <!-- Funcionamiento agregar horario -->
         <section th:fragment="agregarHorario">
             <div id="agregarHorario" 
                  class="modal fade" 
@@ -60,8 +59,9 @@
                                     </div>
                                 </div>
 
+
                                 <!-- Dropdown estilizado para seleccionar la hora -->
-                                <!-- Dropdown estilizado para seleccionar la hora -->
+
                                 <div class="mb-3">
                                     <label for="hora" class="form-label">Hora</label>
                                     <select class="form-select" name="hora" id="hora" required>
@@ -70,6 +70,9 @@
                                                 th:value="${hour + ':00'}"
                                                 th:text="${hour < 12 ? hour + ':00 AM' : (hour == 12 ? '12:00 PM' : (hour - 12) + ':00 PM')}">
                                         </option>
+
+
+
                                     </select>
                                     <div class="invalid-feedback">
                                         Por favor seleccione una hora.
@@ -216,11 +219,6 @@
             </div>
         </section>
         
-        
-
-
-
-
-
+     S
     </body>
 </html>

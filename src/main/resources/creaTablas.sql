@@ -1,3 +1,4 @@
+
 /* Se elimina el esquema si existe y se elimina el usuario si ya está creado */
 DROP SCHEMA IF EXISTS BOHDIWELLNESS;
 DROP USER IF EXISTS 'usuario_prueba'@'%';
@@ -23,4 +24,5 @@ CREATE TABLE horarios (
   PRIMARY KEY (id_horario)
 ) ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
+
 
