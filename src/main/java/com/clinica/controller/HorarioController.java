@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 /*prueba*/
 public class HorarioController {
 
-
     @Autowired
     private HorarioService horarioService;
 
@@ -36,32 +35,44 @@ public class HorarioController {
         List<String> diasSemana = List.of("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado");
 
         // Obtener horarios desde el servicio
-        List<Horario> horarios = horarioService.getHorarios(true); 
+        List<Horario> horarios = horarioService.getHorarios(true);
 
         // Agregar al modelo
         model.addAttribute("diasSemana", diasSemana);
         model.addAttribute("horarios", horarios);
-        return "horarioAdmin/listado"; 
+        return "horarioAdmin/listado";
     }
 
-    // Listado para usuarios o admin
+    // Listado para admin
     @GetMapping("/horarios/admin")
-    public String listarHorarios(Model model) {
-        List<Horario> horarios = horarioService.getHorarios(true); // Solo los activos
+    public String listarHorariosAdmin(Model model) {
+        List<Horario> horarios = horarioService.getHorarios(true);
         List<String> diasSemana = List.of("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado");
 
         model.addAttribute("horarios", horarios);
         model.addAttribute("diasSemana", diasSemana);
         model.addAttribute("horarios", horarios != null ? horarios : new ArrayList<>());
 
-        return "horarioAdmin/listado"; 
+        return "horarioAdmin/listado";
     }
 
+    // Listado para usuarios
+    @GetMapping("/horarios/usuarios")
+    public String listarHorariosUsuarios(Model model) {
+        List<Horario> horarios = horarioService.getHorarios(true);
+        List<String> diasSemana = List.of("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado");
+
+        model.addAttribute("horarios", horarios);
+        model.addAttribute("diasSemana", diasSemana);
+        model.addAttribute("horarios", horarios != null ? horarios : new ArrayList<>());
+
+        return "horarioUsuario/listado";
+    }
 
     @PostMapping("/guardar")
     public String guardar(Horario horario) {
         horarioService.save(horario);
-        return "redirect:/horarios/listado"; // Redirige a la vista correcta después de guardar
+        return "redirect:/horarios/admin";
     }
 
     @GetMapping("/eliminar/{id_horario}")
@@ -69,7 +80,7 @@ public class HorarioController {
         Horario horario = new Horario();
         horario.setId_horario(idHorario);
         horarioService.delete(horario);
-        return "redirect:/horarios/listado";
+        return "redirect:/horarios/admin";
     }
 
     // Modificar horario

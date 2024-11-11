@@ -18,11 +18,22 @@ USE BOHDIWELLNESS;
 
 CREATE TABLE horarios (
   id_horario INT NOT NULL AUTO_INCREMENT,
-  dia date NOT NULL,
-  hora varchar(30) not null,
-  activo BOOLEAN,
+  dia VARCHAR(255) NOT NULL,
+  hora VARCHAR(255) NOT NULL,
+  activo TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (id_horario)
-) ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
+) ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8mb4;
 
+
+INSERT INTO horarios (dia, hora, activo) VALUES
+('Jueves', '10:30', 1),
+('Martes', '6:00', 1),
+('Miercoles', '16:00', 1),
+('Viernes', '15:00', 1),
+('Sabado', '17:00', 0),
+('Miercoles', '2:00', 1),
+('Martes', '7:00', 1),
+('Viernes', '8:00', 1),
+('Miercoles', '12:00', 1);
 
