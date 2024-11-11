@@ -23,50 +23,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class HorarioController {
 
     @Autowired
-    private HorarioService horarioService;
+    private final HorarioService horarioService;
 
     public HorarioController(HorarioService horarioService) {
         this.horarioService = horarioService;
     }
 
-    @GetMapping("/admin")
-    public String mostrarHorarios(Model model) {
-        // Lista de días de la semana
-        List<String> diasSemana = List.of("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado");
-
-        // Obtener horarios desde el servicio
-        List<Horario> horarios = horarioService.getHorarios(true);
-
-        // Agregar al modelo
-        model.addAttribute("diasSemana", diasSemana);
-        model.addAttribute("horarios", horarios);
-        return "horarioAdmin/listado";
-    }
-
-    // Listado para admin
     @GetMapping("/horarios/admin")
     public String listarHorariosAdmin(Model model) {
         List<Horario> horarios = horarioService.getHorarios(true);
         List<String> diasSemana = List.of("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado");
-
         model.addAttribute("horarios", horarios);
         model.addAttribute("diasSemana", diasSemana);
         model.addAttribute("horarios", horarios != null ? horarios : new ArrayList<>());
-
         return "horarioAdmin/listado";
     }
 
-    // Listado para usuarios
-    @GetMapping("/horarios/usuarios")
-    public String listarHorariosUsuarios(Model model) {
-        List<Horario> horarios = horarioService.getHorarios(true);
+    @GetMapping("/admin")
+    public String mostrarHorariosUsuarios(Model model) {
         List<String> diasSemana = List.of("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado");
-
-        model.addAttribute("horarios", horarios);
+        List<Horario> horarios = horarioService.getHorarios(true);
         model.addAttribute("diasSemana", diasSemana);
-        model.addAttribute("horarios", horarios != null ? horarios : new ArrayList<>());
-
-        return "horarioUsuario/listado";
+        model.addAttribute("horarios", horarios);
+        return "horarioAdmin/listado";
     }
 
     @PostMapping("/guardar")
