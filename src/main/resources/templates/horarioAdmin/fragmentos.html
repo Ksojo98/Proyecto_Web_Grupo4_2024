@@ -24,7 +24,7 @@
         </section>
 
 
-
+        <!-- Funcionamiento agregar horario -->
         <section th:fragment="agregarHorario">
             <div id="agregarHorario" 
                  class="modal fade" 
@@ -61,21 +61,21 @@
                                 </div>
 
                                 <!-- Dropdown estilizado para seleccionar la hora -->
+                                <!-- Dropdown estilizado para seleccionar la hora -->
                                 <div class="mb-3">
                                     <label for="hora" class="form-label">Hora</label>
                                     <select class="form-select" name="hora" id="hora" required>
                                         <option value="" disabled selected>Seleccione una hora</option>
-                                        <option th:each="hour : ${#numbers.sequence(0,23)}" 
-                                                th:value="${hour + ':00'}" 
-                                                th:text="${hour + ':00'}"></option>
-                                        <option th:each="hour : ${#numbers.sequence(0,23)}" 
-                                                th:value="${hour + ':30'}" 
-                                                th:text="${hour + ':30'}"></option>
+                                        <option th:each="hour : ${#numbers.sequence(5,21)}" 
+                                                th:value="${hour + ':00'}"
+                                                th:text="${hour < 12 ? hour + ':00 AM' : (hour == 12 ? '12:00 PM' : (hour - 12) + ':00 PM')}">
+                                        </option>
                                     </select>
                                     <div class="invalid-feedback">
                                         Por favor seleccione una hora.
                                     </div>
                                 </div>
+
 
                                 <!-- Checkbox para marcar como activo -->
                                 <div class="mb-3 form-check">
@@ -166,20 +166,43 @@
         <!-- 5. Listado de horarios -->
         <section th:fragment="listadoHorarios">
             <div class="container">
-                 <div class="col text-center">
-                <h4>Horarios de atención de servicio de gimnasio BOHDI WELLNESS</h4>
-                <p>Para citas de fisioterapia contactar en este <a href="" target="_blank">link</a></p>
-            </div>
+                <div class="col text-center">
+                    <h4>Horarios de atención de servicio de gimnasio BOHDI WELLNESS</h4>
+                    <p>Para citas de fisioterapia contactar en este <a href="" target="_blank">link</a></p>
+                </div>
                 <div class="row">
                     <div class="col-md-4 mb-3" th:each="dia : ${diasSemana}">
                         <div class="card text-center">
                             <div class="card-header bg-success text-white">
                                 <h5 th:text="${dia}"></h5>
+                                <!-- Botón Gestionar Horarios -->
+                                <div class="dropdown mt-2">
+                                    <button class="btn btn-secondary btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Gestionar horarios
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li th:each="horario : ${horarios}" th:if="${horario.dia} == ${dia}">
+                                            <div class="dropdown-item d-flex justify-content-between align-items-center">
+                                                <span th:text="${horario.hora}"></span>
+                                                <div>
+                                                    <a th:href="@{/horarios/modificar/{id_horario}(id_horario=${horario.id_horario})}" class="btn btn-warning btn-sm mx-1">
+                                                        Editar
+                                                    </a>
+                                                    <a th:href="@{/horarios/eliminar/{id_horario}(id_horario=${horario.id_horario})}" class="btn btn-danger btn-sm">
+                                                        Eliminar
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li th:if="${#lists.isEmpty(horarios.?[dia == dia])}" class="text-muted">
+                                            <span class="dropdown-item">Sin horarios</span>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <ul class="list-unstyled">
-                                    <li th:each="horario : ${horarios}" 
-                                        th:if="${horario.dia} == ${dia}">
+                                    <li th:each="horario : ${horarios}" th:if="${horario.dia} == ${dia}">
                                         <span th:text="${horario.hora}"></span>
                                     </li>
                                     <li th:if="${#lists.isEmpty(horarios.?[dia == dia])}" class="text-muted">
@@ -191,9 +214,11 @@
                     </div>
                 </div>
             </div>
-            
-
         </section>
+        
+        
+
+
 
 
 
