@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org/1999/xhtml">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>BOHDI WELLNESS</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body> 
+
+
+        <!-- 5. Listado de horarios -->
+        <section th:fragment="listadoHorarios">
+            <div class="container">
+                <div class="col text-center">
+                    <h4>Horarios de atención de servicio de gimnasio BOHDI WELLNESS</h4>
+                    <p>Para citas de fisioterapia contactar en este <a href="" target="_blank">link</a></p>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3" th:each="dia : ${diasSemana}">
+                        <div class="card text-center">
+                            <div class="card-header bg-success text-white">
+                                <h5 th:text="${dia}"></h5>
+
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled">
+                                    <li th:each="horario : ${horarios}" th:if="${horario.dia} == ${dia}">
+                                        <span th:text="${horario.hora}"></span>
+                                    </li>
+                                    <li th:if="${#lists.isEmpty(horarios.?[dia == dia])}" class="text-muted">
+                                        Sin horarios
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+     
+    </body>
+</html>
