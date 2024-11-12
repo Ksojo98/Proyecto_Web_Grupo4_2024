@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/1999/xhtml">
+<head th:fragment="head">
+    <title>BOHDI WELLNESS - Membresías Admin</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+    <section th:fragment="listadoMembresiasAdmin(membresias)">
+        <div class="container my-5">
+            <h2 class="text-center text-success mb-4">Administración de Planes de Salud</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered text-center">
+                    <thead>
+                        <tr>
+                            <th>Beneficios</th>
+                            <th th:each="membresia : ${membresias}" th:text="${membresia.nombre}">Nombre del Plan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí se puede reutilizar el código de los beneficios, asegurándonos de que esté alineado con los nombres de los atributos de `Membresia` -->
+                        <!-- ... código de los beneficios ... -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td><b>Escoge el plan de tu preferencia</b></td>
+                            <td th:each="membresia : ${membresias}">
+                                <!-- Ajuste para usar rutas de edición y eliminación con Thymeleaf -->
+                                <a th:href="@{'/membresias/admin/editar/' + ${membresia.idMembresia}}" class="btn btn-success">Editar</a>
+                                <button type="button" th:onclick="'abrirEliminarModal(' + ${membresia.idMembresia} + ')'" class="btn btn-danger">Eliminar</button>
+                            </td>
+                        </tr>
+                        <!-- Botón para agregar solo si hay menos de 3 planes -->
+                        <tr th:if="${membresias.size() < 3}">
+                            <td colspan="3" class="text-center">
+                                <a th:href="@{'/membresias/admin/agregar'}" class="btn btn-primary">Agregar</a>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modal para eliminar planes -->
+        <div class="modal fade" id="eliminarModal" tabindex="-1" role="dialog" aria-labelledby="eliminarModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="eliminarModalLabel">Eliminar Membresía(s)</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form th:action="@{/membresias/admin/eliminar}" method="post">
+                            <!-- Checkbox para cada membresía a eliminar -->
+                            <div th:each="membresia : ${membresias}">
+                                <input type="checkbox" th:id="${'eliminar_' + membresia.idMembresia}" th:name="membresiasEliminar" th:value="${membresia.idMembresia}" />
+                                <label th:for="${'eliminar_' + membresia.idMembresia}" th:text="${membresia.nombre}">Plan Básico</label><br/>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-danger">Guardar</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
