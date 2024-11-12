@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/1999/xhtml">
+<head th:fragment="head">
+    <title>BOHDI WELLNESS - Membresías Cliente</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+    <!-- Fragmento de listado de membresías para Cliente -->
+    <section th:fragment="listadoMembresiasCliente(membresias)">
+        <div class="container my-5">
+            <h2 class="text-center text-success mb-4">Los planes para tu salud</h2>
+            <!-- Tabla de membresías -->
+            <div class="table-responsive">
+                <table class="table table-bordered text-center">
+                    <thead>
+                        <tr>
+                            <th>Beneficios</th>
+                            <th th:each="membresia : ${membresias}" th:text="${membresia.nombre}">Nombre del Plan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Evaluación inicial -->
+                        <tr>
+                            <td>Evaluación inicial</td>
+                            <td th:each="membresia : ${membresias}">
+                                <span th:if="${membresia.evaluacionInicial}" class="text-success">✔</span>
+                                <span th:if="${!membresia.evaluacionInicial}" class="text-danger">✘</span>
+                            </td>
+                        </tr>
+                        <!-- Sesión de fisioterapia semanal -->
+                        <tr>
+                            <td>Sesión de fisioterapia semanal</td>
+                            <td th:each="membresia : ${membresias}">
+                                <span th:if="${membresia.fisioterapiaSemanal}" class="text-success">✔</span>
+                                <span th:if="${!membresia.fisioterapiaSemanal}" class="text-danger">✘</span>
+                            </td>
+                        </tr>
+                        <!-- Acceso a sala de ejercicios -->
+                        <tr>
+                            <td>Acceso a sala de ejercicios</td>
+                            <td th:each="membresia : ${membresias}">
+                                <span th:if="${membresia.salaEjercicios}" class="text-success">✔</span>
+                                <span th:if="${!membresia.salaEjercicios}" class="text-danger">✘</span>
+                            </td>
+                        </tr>
+                        <!-- Terapia manual -->
+                        <tr>
+                            <td>Terapia manual</td>
+                            <td th:each="membresia : ${membresias}">
+                                <span th:if="${membresia.terapiaManual}" class="text-success">✔</span>
+                                <span th:if="${!membresia.terapiaManual}" class="text-danger">✘</span>
+                            </td>
+                        </tr>
+                        <!-- Uso de equipos especializados -->
+                        <tr>
+                            <td>Uso de equipos especializados</td>
+                            <td th:each="membresia : ${membresias}">
+                                <span th:if="${membresia.equiposEspecializados}" class="text-success">✔</span>
+                                <span th:if="${!membresia.equiposEspecializados}" class="text-danger">✘</span>
+                            </td>
+                        </tr>
+                        <!-- Consultas con nutricionista -->
+                        <tr>
+                            <td>Consultas con nutricionista</td>
+                            <td th:each="membresia : ${membresias}">
+                                <span th:if="${membresia.consultasNutricion}" class="text-success">✔</span>
+                                <span th:if="${!membresia.consultasNutricion}" class="text-danger">✘</span>
+                            </td>
+                        </tr>
+                        <!-- Masajes terapéuticos -->
+                        <tr>
+                            <td>Masajes terapéuticos</td>
+                            <td th:each="membresia : ${membresias}">
+                                <span th:if="${membresia.masajesTerapeuticos}" class="text-success">✔</span>
+                                <span th:if="${!membresia.masajesTerapeuticos}" class="text-danger">✘</span>
+                            </td>
+                        </tr>
+                        <!-- Sesión de fisioterapia a domicilio -->
+                        <tr>
+                            <td>Sesión de fisioterapia a domicilio</td>
+                            <td th:each="membresia : ${membresias}">
+                                <span th:if="${membresia.fisioterapiaDomicilio}" class="text-success">✔</span>
+                                <span th:if="${!membresia.fisioterapiaDomicilio}" class="text-danger">✘</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td><strong>Escoge el plan de tu preferencia</strong></td>
+                            <td th:each="membresia : ${membresias}">
+                                <a th:href="@{'/adquirir/' + ${membresia.idMembresia}}" class="btn btn-success">Adquirir</a>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- Nota al final de la tabla -->
+            <div class="text-center mt-4">
+                <p>¿Tienes dudas sobre cuál plan es el adecuado para ti? Contáctanos y te ayudaremos a encontrar la mejor opción según tus necesidades. Nuestro equipo está aquí para apoyarte en cada paso de tu camino hacia el bienestar.</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

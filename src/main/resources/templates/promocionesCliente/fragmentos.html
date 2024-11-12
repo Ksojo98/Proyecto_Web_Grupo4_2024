@@ -1,4 +1,3 @@
-<!-- templates/promocionesCliente/fragmentos.html -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/1999/xhtml">
 <head th:replace="~{layout/plantilla :: head}">
@@ -8,50 +7,26 @@
 <body>
 
     <!-- Fragmento de listado de promociones -->
-    <section th:fragment="listadoPromociones">
+    <section th:fragment="listadoPromociones(promociones)">
         <div class="container my-5">
             <h2 class="text-center text-success mb-4">¡Descuentos pensados en tu salud!</h2>
 
-            <!-- Promoción de Halloween -->
-            <div class="card mb-4 shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title text-center text-warning">¡Promoción de Halloween!</h3>
-                    <div class="row text-center">
-                        <div class="col-md-4">
-                            <img src="path/to/gel_image.png" class="img-fluid mb-2" alt="Gel de calor/frío">
-                            <p>Gel de calor/frío<br><small>Para alivio del dolor y recuperación muscular</small></p>
+            <!-- Itera sobre las promociones obtenidas desde la base de datos -->
+            <div th:each="promocion : ${promociones}">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title text-center" th:text="${promocion.titulo}">Título de Promoción</h3>
+                        <div class="row text-center">
+                            <div class="col-md-4 offset-md-4">
+                                <img th:src="@{${promocion.imagen}}" class="img-fluid mb-2" th:alt="${promocion.titulo}">
+                                <p th:text="${promocion.descripcion}">Descripción de la promoción</p>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <img src="path/to/therapy_image.png" class="img-fluid mb-2" alt="Fisioterapia lesiones">
-                            <p>Fisioterapia lesiones<br><small>Ejercicios y técnicas para mejorar la recuperación de lesiones</small></p>
+                        <p class="text-center text-muted mt-3">Por tan solo...</p>
+                        <h4 class="text-center text-danger" th:text="${promocion.precio}">Precio de la promoción</h4>
+                        <div class="text-center">
+                            <a href="#" class="btn btn-success mt-3">¡Aprovechar oportunidad!</a>
                         </div>
-                        <div class="col-md-4">
-                            <img src="path/to/plan_image.png" class="img-fluid mb-2" alt="Plan Diamante">
-                            <p>Plan Diamante<br><small>Atención completa y personalizada</small></p>
-                        </div>
-                    </div>
-                    <p class="text-center text-muted mt-3">Por tan solo...</p>
-                    <h4 class="text-center text-danger">₡102 830</h4>
-                    <div class="text-center">
-                        <a href="#" class="btn btn-success mt-3">¡Aprovechar oportunidad!</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Promoción de Black Friday -->
-            <div class="card mb-4 shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title text-center text-primary">¡Promoción de Black Friday!</h3>
-                    <div class="row text-center">
-                        <div class="col-md-4 offset-md-4">
-                            <img src="path/to/massage_image.png" class="img-fluid mb-2" alt="Descarga muscular">
-                            <p>Descarga muscular<br><small>Dos sesiones de descarga muscular para superior e inferior</small></p>
-                        </div>
-                    </div>
-                    <p class="text-center text-muted mt-3">Por tan solo...</p>
-                    <h4 class="text-center text-danger">₡50 000</h4>
-                    <div class="text-center">
-                        <a href="#" class="btn btn-success mt-3">¡Aprovechar oportunidad!</a>
                     </div>
                 </div>
             </div>
