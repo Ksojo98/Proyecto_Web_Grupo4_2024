@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/1999/xhtml">
 <head th:replace="~{layout/plantilla :: head}">
-    <title>BOHDI WELLNESS - Listado de Promociones</title>
+    <title>BOHDI WELLNESS - Promociones Admin</title>
     <meta charset="UTF-8"/>
 </head>
-<body> 
+<body>
     <header th:replace="~{layout/plantilla :: header}"></header>
 
-    <section th:replace="~{promocionesCliente/fragmentos :: listadoPromociones(promociones=${promociones})}"></section>
+    <!-- Cargar el fragmento del listado de promociones para Admin -->
+    <section th:replace="~{promocionesAdmin/fragmentos :: listadoPromocionesAdmin(promociones=${promociones})}"></section>
 
     <footer th:replace="~{layout/plantilla :: footer}"></footer>
 </body>

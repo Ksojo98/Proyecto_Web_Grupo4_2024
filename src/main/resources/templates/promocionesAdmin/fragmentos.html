@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/1999/xhtml">
+<head th:fragment="head">
+    <title>BOHDI WELLNESS - Fragmentos Admin</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+    <!-- Fragmento de listado de promociones para Admin -->
+    <section th:fragment="listadoPromocionesAdmin(promociones)">
+        <div class="container my-5">
+            <h2 class="text-center text-success mb-4">Administración de Promociones</h2>
+            
+            <!-- Botón para agregar nueva promoción -->
+            <div class="text-center mb-4">
+                <a href="#" th:href="@{/promociones/admin/nueva}" class="btn btn-primary">Añadir Nueva Promoción</a>
+            </div>
+
+            <!-- Tabla de promociones -->
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Título</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="promocion : ${promociones}">
+                        <td><img th:src="@{${promocion.imagen}}" alt="Imagen de Promoción" class="img-thumbnail" width="100"></td>
+                        <td th:text="${promocion.titulo}">Título</td>
+                        <td th:text="${promocion.descripcion}">Descripción</td>
+                        <td th:text="${promocion.precio}">₡0.00</td>
+                        <td>
+                            <a th:href="@{/promociones/admin/editar/{id}(id=${promocion.id_promocion})}" class="btn btn-warning btn-sm">Editar</a>
+                            <a th:href="@{/promociones/admin/eliminar/{id}(id=${promocion.id_promocion})}" class="btn btn-danger btn-sm" 
+                               onclick="return confirm('¿Estás seguro de que deseas eliminar esta promoción?')">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+</html>
