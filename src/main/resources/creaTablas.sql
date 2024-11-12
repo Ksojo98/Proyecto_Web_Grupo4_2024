@@ -1,5 +1,5 @@
 
-/* Se elimina el esquema si existe y se elimina el usuario si ya está creado */
+/* Se elimina el esquema si existe y se elimina el usuario si ya está creado  */
 DROP SCHEMA IF EXISTS BOHDIWELLNESS;
 DROP USER IF EXISTS 'usuario_prueba'@'%';
 
