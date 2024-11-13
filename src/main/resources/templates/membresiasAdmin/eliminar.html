@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/1999/xhtml">
+<head th:replace="~{layout/plantilla :: head}">
+    <title>BOHDI WELLNESS - Eliminar Membresía(s)</title>
+</head>
+<body>
+    <header th:replace="~{layout/plantilla :: header}"></header>
+
+    <div class="container my-5">
+        <h2 class="text-center text-danger mb-4">Eliminar Membresía(s)</h2>
+
+        <form th:action="@{/membresias/admin/eliminar}" method="post" 
+              onsubmit="return confirm('¿Estás seguro de que deseas eliminar las membresías seleccionadas?');">
+            <p>Selecciona las membresías que deseas eliminar:</p>
+            <div class="form-check" th:each="membresia : ${membresias}">
+                <input type="checkbox" th:id="${membresia.idMembresia}" name="membresiasEliminar" th:value="${membresia.idMembresia}" class="form-check-input" />
+                <label th:for="${membresia.idMembresia}" th:text="${membresia.nombre}" class="form-check-label"></label><br/>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-danger">Eliminar Seleccionados</button>
+                <a th:href="@{/membresias/admin}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+    <footer th:replace="~{layout/plantilla :: footer}"></footer>
+</body>
+</html>

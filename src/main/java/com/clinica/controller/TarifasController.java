@@ -19,26 +19,22 @@ public class TarifasController {
     @Autowired
     private TarifasService tarifasService;
 
-    // Modificar tarifa
+   
     @GetMapping("/modificar/{id_tarifa}")
     public String tarifaModificar(@PathVariable("id_tarifa") Long idTarifa, Model model) {
-        // Obtiene la tarifa a modificar por su ID
+       
         Tarifas tarifa = tarifasService.getTarifaById(idTarifa);
-        
-        // Pasa la tarifa a la vista para que el usuario la pueda modificar
         model.addAttribute("tarifa", tarifa);
-        
-        return "tarifasAdmin/modifica"; // Vista donde se modificará la tarifa
+        return "tarifasAdmin/modifica"; 
     }
 
     // Guardar la tarifa modificada
     @PostMapping("/guardar")
     public String guardar(Tarifas tarifa) {
-        // Guarda la tarifa (se asume que la tarifa ya está modificada)
+      
         tarifasService.save(tarifa);
-        
-        // Redirige al listado de tarifas después de guardar
-        return "redirect:/tarifas/admin";  // O la ruta donde deseas redirigir al guardar
+
+        return "redirect:/tarifas/admin";  
     }
 }
 

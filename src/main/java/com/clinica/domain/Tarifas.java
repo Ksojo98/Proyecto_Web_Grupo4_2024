@@ -19,5 +19,6 @@ public class Tarifas implements Serializable {
 
     private String tarifa;
     private boolean activo;
+    //test
 }
 

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Controller
 @RequestMapping("/membresias")
@@ -45,18 +44,10 @@ public class MembresiaController {
         return "redirect:/membresias/admin"; // Redirecciona a la vista de administración de membresías
     }
 
-    // Ruta para mostrar el formulario de confirmación de eliminación de membresía
-    @GetMapping("/admin/eliminar")
-    public String mostrarFormularioEliminar(Model model) {
-        model.addAttribute("membresias", membresiaService.listarMembresias());
-        return "membresiasAdmin/eliminar"; // Renderiza el archivo `eliminar.html` en `membresiasAdmin`
-    }
-
-    // Ruta para eliminar las membresías seleccionadas
-    @PostMapping("/admin/eliminar")
-    public String eliminarMembresias(@RequestParam("membresiasEliminar") List<Long> ids) {
-        membresiaService.eliminarMembresias(ids);
-        return "redirect:/membresias/admin"; // Redirecciona a la vista de administración de membresías
+    @PostMapping("/admin/eliminar/{id}")
+    public String eliminarMembresia(@PathVariable("id") Long id) {
+        membresiaService.eliminarMembresiaPorId(id);
+        return "redirect:/membresias/admin"; // Redirige a la vista de administración después de eliminar
     }
 
     // Ruta para mostrar el formulario de agregar nueva membresía
