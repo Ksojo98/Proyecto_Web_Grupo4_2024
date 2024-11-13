@@ -24,20 +24,18 @@ public class MembresiaServiceImpl implements MembresiaService {
     @Override
     public Membresia obtenerMembresiaPorId(Long id) {
         Optional<Membresia> membresia = membresiaDao.findById(id);
-        return membresia.orElse(null); // Retorna null si no encuentra la membresía
+        return membresia.orElse(null);
     }
 
     @Override
     @Transactional
     public void guardarMembresia(Membresia membresia) {
-        membresiaDao.save(membresia); // Guarda o actualiza la membresía
+        membresiaDao.save(membresia);
     }
 
     @Override
     @Transactional
-    public void eliminarMembresias(List<Long> ids) {
-        for (Long id : ids) {
-            membresiaDao.deleteById(id); // Elimina cada membresía por su ID
-        }
+    public void eliminarMembresiaPorId(Long id) {
+        membresiaDao.deleteById(id);
     }
 }
