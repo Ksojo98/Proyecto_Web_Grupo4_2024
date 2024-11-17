@@ -21,74 +21,81 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @Configuration
-public class ProjectConfig implements WebMvcConfigurer{
-    
+public class ProjectConfig implements WebMvcConfigurer {
+
     @Bean
-    public LocaleResolver localeResolver(){
+    public LocaleResolver localeResolver() {
         var slr = new SessionLocaleResolver();
         slr.setDefaultLocale(Locale.getDefault());
         slr.setLocaleAttributeName("session.current.locale");
         slr.setTimeZoneAttributeName("session.current.timezone");
         return slr;
     }
-    
+
     @Bean
-    public LocaleChangeInterceptor localeChangeInterceptor(){
+    public LocaleChangeInterceptor localeChangeInterceptor() {
         var lci = new LocaleChangeInterceptor();
         lci.setParamName("lang");
         return lci;
     }
-    
+
     @Override
-    public void addInterceptors(InterceptorRegistry registro){
+    public void addInterceptors(InterceptorRegistry registro) {
         registro.addInterceptor(localeChangeInterceptor());
     }
-    
-    
+
     @Override
-    public void addViewControllers(ViewControllerRegistry registry){
+    public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index").setViewName("index");
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/registro/nuevo").setViewName("/registro/nuevo");
     }
-    
-    
+
     @Autowired
     private RutaPermitService rutaPermitService;
     @Autowired
     private RutaService rutaService;
-    
+
+    /**
+     * Configuración de seguridad para definir qué rutas son accesibles y cuáles requieren autenticación.
+     */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)
-            throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         String[] rutaPermit = rutaPermitService.getRutaPermitsString();
         List<Ruta> rutas = rutaService.getRutas();
-        
-        http.authorizeHttpRequests( (request) -> {
+
+        http.authorizeHttpRequests((request) -> {
+            // Rutas públicas desde la base de datos
             request.requestMatchers(rutaPermit).permitAll();
+
+            // Permitir acceso a las rutas de producto sin autenticación
+            request.requestMatchers("/producto/listado", "/producto/listado/**").permitAll();
+
+            // Configurar las rutas protegidas con roles desde la base de datos
             for (Ruta ruta : rutas) {
                 request.requestMatchers(ruta.getPatron()).hasRole(ruta.getRolName());
             }
+
+            // Proteger cualquier otra ruta no especificada
+            request.anyRequest().authenticated();
         })
-                .formLogin( (form) -> form
-                .loginPage("/login").permitAll())
-                .logout((logout) -> logout.permitAll());
+        .formLogin((form) -> form
+            .loginPage("/login").permitAll())
+        .logout((logout) -> logout.permitAll());
+
         return http.build();
     }
-    
-    
+
     @Autowired
     private UserDetailsService userDetailsService;
-    
+
+    /**
+     * Configuración del servicio de autenticación para utilizar BCryptPasswordEncoder.
+     */
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder builder)
-    throws Exception {
-        builder.userDetailsService (userDetailsService)
+    public void configureGlobal(AuthenticationManagerBuilder builder) throws Exception {
+        builder.userDetailsService(userDetailsService)
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
-    
-
-    
-    
 }

@@ -23,21 +23,46 @@ public class ProductoController {
     @Autowired
     private CategoriaService categoriaService;
 
-    @GetMapping("/listado")
-    public String listado(Model model) {
-        var lista = productoService.getProductos(false);
-        model.addAttribute("productos", lista);
-        model.addAttribute("totalProductos", lista.size());
-        
-        var categorias = categoriaService.getCategorias(false);
-        model.addAttribute("categorias", categorias);
-        
-        return "/producto/listado";
-    }
-
     @Autowired
     private FirebaseStorageServiceImpl firebaseStorageService;
 
+    /**
+     * Método para mostrar el listado de productos.
+     * Si el parámetro "ofertas" es true, se muestran los productos más baratos por categoría.
+     * Si no, se muestran todos los productos.
+     */
+    @GetMapping("/listado")
+    public String listado(
+            @RequestParam(value = "ofertas", required = false, defaultValue = "false") boolean ofertas,
+            Model model) {
+        var productos = ofertas 
+                ? productoService.getCheapestProductPerCategory() 
+                : productoService.getProductos(false);
+        model.addAttribute("productos", productos);
+        model.addAttribute("ofertas", ofertas);
+        
+        // También añadimos las categorías para usarlas en la vista si es necesario
+        var categorias = categoriaService.getCategorias(false);
+        model.addAttribute("categorias", categorias);
+
+        return "producto/listado"; // Corrección: sin el prefijo "/"
+    }
+
+    /**
+     * Método para mostrar los productos más baratos por categoría.
+     * Este método es redundante si ya usas el parámetro "ofertas" en el listado.
+     */
+    @GetMapping("/ofertas")
+    public String productosEnOferta(Model model) {
+        var productos = productoService.getCheapestProductPerCategory();
+        model.addAttribute("productos", productos);
+        return "producto/ofertas"; // Corrección: sin el prefijo "/"
+    }
+
+    /**
+     * Método para guardar un producto nuevo o actualizar uno existente.
+     * Permite subir una imagen asociada al producto.
+     */
     @PostMapping("/guardar")
     public String productoGuardar(Producto producto,
             @RequestParam("imagenFile") MultipartFile imagenFile) {
@@ -53,12 +78,19 @@ public class ProductoController {
         return "redirect:/producto/listado";
     }
 
+    /**
+     * Método para eliminar un producto por su ID.
+     */
     @GetMapping("/eliminar/{idProducto}")
     public String productoEliminar(Producto producto) {
         productoService.delete(producto);
         return "redirect:/producto/listado";
     }
 
+    /**
+     * Método para modificar un producto existente.
+     * Carga los datos del producto en la vista de modificación.
+     */
     @GetMapping("/modificar/{idProducto}")
     public String productoModificar(Producto producto, Model model) {
         producto = productoService.getProducto(producto);
@@ -67,6 +99,6 @@ public class ProductoController {
         var categorias = categoriaService.getCategorias(false);
         model.addAttribute("categorias", categorias);
         
-        return "/producto/modifica";
+        return "producto/modifica"; // Corrección: sin el prefijo "/"
     }
 }

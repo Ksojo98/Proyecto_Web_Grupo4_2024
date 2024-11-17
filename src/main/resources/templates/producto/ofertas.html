@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Productos en Oferta</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"></header>
+
+        <section class="container mt-4">
+            <h2>Productos accesibles: ¡Lo más barato!</h2>
+            <div th:if="${productos != null and !productos.empty}">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Categoría</th>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Imagen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="p : ${productos}">
+                            <td>[[${p.categoria.descripcion}]]</td>
+                            <td>[[${p.descripcion}]]</td>
+                            <td class="text-end">[[${p.precio}]]</td>
+                            <td><img th:src="@{${p.rutaImagen}}" height="75"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:if="${productos == null or productos.empty}">
+                <h4>No hay productos en oferta.</h4>
+            </div>
+        </section>
+
+        <footer th:replace="~{layout/plantilla :: footer}"></footer>
+    </body>
+</html>

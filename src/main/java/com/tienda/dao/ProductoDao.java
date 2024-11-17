@@ -34,6 +34,13 @@ public interface ProductoDao extends JpaRepository<Producto, Long> {
     public List<Producto> consultaSQL (@Param("precioInf") double precioInf, 
                                        @Param("precioSup") double precioSup);
     
+    
+    @Query(value = "SELECT p FROM Producto p WHERE p.precio = "
+            + "(SELECT MIN(p2.precio) FROM Producto p2 WHERE p2.categoria.idCategoria = p.categoria.idCategoria) "
+            + "ORDER BY p.categoria.descripcion ASC")
+    List<Producto> findCheapestProductPerCategory();
+    
+    
 }
 
 

@@ -33,4 +33,7 @@ public interface ProductoService {
     // Recupera los productos que están en un rango de precios ordenados por descripcion
     public List<Producto> consultaSQL (double precioInf, double precioSup); 
     
+    
+    // Consulta para obtener el producto más barato por categoría
+    List<Producto> getCheapestProductPerCategory();
 }

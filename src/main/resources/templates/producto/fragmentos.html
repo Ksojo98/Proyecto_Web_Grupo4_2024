@@ -9,21 +9,30 @@
     <body>
 
 
-        <!-- 1 Sección para crear el boton de agregar... llamará a una ventana modal-->
-        <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3">   
-                        <button type="button" 
-                                class="btn btn-primary btn-block" 
-                                data-bs-toggle="modal" 
-                                data-bs-target="#agregarProducto">
-                            <i class="fas fa-plus"></i> [[#{producto.agregar}]]
-                        </button>
+        <!-- 1 Sección para crear el botón de agregar... llamará a una ventana modal -->
+                <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
+                    <div class="container">
+                        <div class="row">
+                            <!-- Botón para agregar un nuevo producto -->
+                            <div class="col-md-3">   
+                                <button type="button" 
+                                        class="btn btn-primary btn-block" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#agregarProducto">
+                                    <i class="fas fa-plus"></i> [[#{producto.agregar}]]
+                                </button>
+                            </div>
+
+                            <!-- Botón para ver los productos más baratos -->
+                            <div class="col-md-3">
+                                <a class="btn btn-info btn-block" 
+                                   th:href="@{'/producto/ofertas'}">
+                                    <i class="fas fa-tags"></i> Ver Más Baratos
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </section>
+                </section>
 
         <!-- 2 Fragmento para agregar producto, es la ventana modal -->
         <section th:fragment="agregarProducto">
