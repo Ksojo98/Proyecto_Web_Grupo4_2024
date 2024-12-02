@@ -1,21 +1,80 @@
 <!DOCTYPE html>
-<!--
-Mi primera página dinamica
--->
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:th="http://www.thymeleaf.org/1999/xhtml">
-    <head th:replace="~{layout/plantilla :: head}">
-        <title>Horarios Admin</title>
-        <meta charset="UTF-8"/>
-    </head>
-    <body> 
-        <header th:replace="~{layout/plantilla :: header}"></header>
+<head th:replace="~{layout/plantilla :: head}">
+    <title>Modificar Horario</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <header th:replace="~{layout/plantilla :: header}"></header>
 
-        <!-- Sección de listado de horarios -->
-        <section th:replace="~{horarioAdmin/fragmentos :: listadoHorarios}"></section>
+    <!-- Contenedor principal -->
+    <div class="container mt-5">
+        <h2 class="text-center text-primary">Administrar Horarios</h2>
 
-        <footer th:replace="~{layout/plantilla :: footer}"></footer>
-    </body>
+        <!-- Tabla o lista de horarios -->
+        <div class="row mt-4">
+            <div class="col text-center">
+                <p th:text="'Día: ' + ${horario.dia}">Día</p>
+                <p th:text="'Hora: ' + ${horario.hora}">Hora</p>
+            </div>
+        </div>
+
+        <!-- Botón para abrir el modal de editar -->
+        <div class="text-center mt-4">
+            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarHorarioModal">
+                Editar Horario
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal para editar horario -->
+    <div class="modal fade" id="editarHorarioModal" tabindex="-1" aria-labelledby="editarHorarioModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarHorarioModalLabel">Editar Horario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulario para editar el horario -->
+                    <form method="POST" th:action="@{/horarios/guardar}" th:object="${horario}">
+                        <!-- Campo oculto para el ID del horario -->
+                        <input type="hidden" th:field="*{id_horario}"/>
+
+                        <!-- Campo de selección para el día -->
+                        <div class="mb-3">
+                            <label for="dia" class="form-label">Día</label>
+                            <select class="form-select" id="dia" th:field="*{dia}">
+                                <option th:each="dia : ${diasSemana}" th:value="${dia}" th:text="${dia}"></option>
+                            </select>
+                        </div>
+
+                        <!-- Campo para la hora -->
+                        <div class="mb-3">
+                            <label for="hora" class="form-label">Hora</label>
+                            <input type="text" class="form-control" id="hora" th:field="*{hora}" placeholder="Ingrese la hora (Ej: 08:00)" required>
+                        </div>
+
+                        <!-- Checkbox para activo -->
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="activo" th:field="*{activo}">
+                            <label class="form-check-label" for="activo">Activo</label>
+                        </div>
+
+                        <!-- Botones dentro del modal -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="~{layout/plantilla :: footer}"></footer>
+</body>
 </html>
-

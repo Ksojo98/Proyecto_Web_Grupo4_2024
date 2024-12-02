@@ -95,3 +95,34 @@ SET SQL_MODE=DEFAULT;
 SET FOREIGN_KEY_CHECKS=1;
 SET UNIQUE_CHECKS=1;
 SET SQL_NOTES=1;
+
+
+--Andrés, 1/12/2024
+CREATE TABLE usuarios (
+  id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+  correo VARCHAR(100) NOT NULL UNIQUE,
+  contraseña VARCHAR(255) NOT NULL,
+  rol ENUM('CLIENTE', 'ADMIN') NOT NULL DEFAULT 'CLIENTE'
+);
+
+INSERT INTO usuarios (correo, contraseña, rol) 
+VALUES ('admin@bodhiwellness.com', '$2a$12$21sdEU6RL/bbcMkQsHyWAelaOJW6gqIj5fRjwiVQKmRkWgVg5y9pO', 'ADMIN');
+
+
+CREATE TABLE productos (
+    id_producto INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    descripcion TEXT NOT NULL,
+    precio DECIMAL(10,2) NOT NULL,
+    imagen VARCHAR(2083), -- URL larga para la imagen
+    stock INT NOT NULL -- Cantidad disponible
+);
+
+INSERT INTO productos (nombre, descripcion, precio, imagen, stock)
+VALUES 
+('Producto 1', 'Descripción del producto 1', 10000.00, 'https://via.placeholder.com/150', 20),
+('Producto 2', 'Descripción del producto 2', 20000.00, 'https://via.placeholder.com/150', 15),
+('Producto 3', 'Descripción del producto 3', 30000.00, 'https://via.placeholder.com/150', 10),
+('Producto 4', 'Descripción del producto 4', 5000.00, 'https://via.placeholder.com/150', 25),
+('Producto 5', 'Descripción del producto 5', 20000.00, 'https://via.placeholder.com/150', 7),
+('Producto 6', 'Descripción del producto 6', 15000.00, 'https://via.placeholder.com/150', 5);

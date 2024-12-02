@@ -27,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="promocion : ${promociones}">
+                    <tr th:each="promocion : ${promociones}" class="align-middle">
                         <td><img th:src="@{${promocion.imagen}}" alt="Imagen de Promoción" class="img-thumbnail" width="100"></td>
                         <td th:text="${promocion.titulo}">Título</td>
                         <td th:text="${promocion.descripcion}">Descripción</td>

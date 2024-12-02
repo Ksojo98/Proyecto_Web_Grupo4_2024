@@ -54,8 +54,9 @@ public class HorarioServiceImpl implements HorarioService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Horario getHorario(Horario horario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return horarioDao.findById(horario.getId_horario()).orElse(null);
     }
 
 }

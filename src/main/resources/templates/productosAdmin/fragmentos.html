@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/1999/xhtml">
+<head th:fragment="head">
+    <title>BOHDI WELLNESS - Fragmentos Productos Admin</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+    <!-- Fragmento de listado de productos para Admin -->
+    <section th:fragment="listadoProductosAdmin(productos)">
+        <div class="container my-5">
+            <h2 class="text-center text-success mb-4">Administración de Productos</h2>
+            
+            <!-- Botón para agregar nuevo producto -->
+            <div class="text-center mb-4">
+                <a href="#" th:href="@{/productos/admin/nuevo}" class="btn btn-primary">Añadir Nuevo Producto</a>
+            </div>
+
+            <!-- Tabla de productos -->
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Stock</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="producto : ${productos}" class="align-middle">
+                        <td><img th:src="@{${producto.imagen}}" alt="Imagen de Producto" class="img-thumbnail" width="100"></td>
+                        <td th:text="${producto.nombre}">Nombre</td>
+                        <td th:text="${producto.descripcion}">Descripción</td>
+                        <td th:text="${producto.precio}">₡0.00</td>
+                        <td th:text="${producto.stock}">0</td>
+                        <td>
+                            <a th:href="@{/productos/admin/editar/{id}(id=${producto.idProducto})}" class="btn btn-warning btn-sm">Editar</a>
+                            <a th:href="@{/productos/admin/eliminar/{id}(id=${producto.idProducto})}" class="btn btn-danger btn-sm" 
+                               onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?')">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+</html>
