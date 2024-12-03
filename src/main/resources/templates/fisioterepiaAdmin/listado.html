@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!--
+Mi primera página dinamica
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org/1999/xhtml" 
+      >
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>BOHDI WELLNESS</title>
+        <meta charset="UTF-8"/>
+
+    </head>
+    <body> 
+        <header th:replace="~{layout/plantilla :: header}"></header>
+
+
+        <section th:replace="~{horariofisioterapiaAdmin/fragmentos :: botonesAgregar}"/>
+        <section th:replace="~{horariofisioterapiaAdmin/fragmentos :: agregarHorario}"/>
+        <section th:replace="~{horariofisioterapiaAdmin/fragmentos :: listadoHorarios}"/>
+
+        <footer th:replace="~{layout/plantilla :: footer}">  </footer>
+
+
+    </body>
+</html>

@@ -20,18 +20,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
-@RequestMapping("/horarios")  // PRUEBA 24
+@RequestMapping("/fisioterapia")  // PRUEBA 24
 /*prueba*/
-public class HorarioController {
+public class FisioterepiaController {
 
     @Autowired
     private final HorarioService horarioService;
 
-    public HorarioController(HorarioService horarioService) {
+    public FisioterepiaController(HorarioService horarioService) {
         this.horarioService = horarioService;
     }
 
-    @GetMapping("/horarios/admin")
+    @GetMapping("/fisioterapia/admin")
     public String listarHorarios(Model model) {
         List<Horario> horarios = horarioService.getHorarios(true);
 
@@ -44,7 +44,7 @@ public class HorarioController {
 
         model.addAttribute("horarios", horarios);
         model.addAttribute("diasSemana", diasSemana);
-        return "horarioAdmin/listado";
+        return "fisioterapia/listado";
     }
 
     @GetMapping("/admin")
@@ -53,13 +53,13 @@ public class HorarioController {
         List<Horario> horarios = horarioService.getHorarios(true);
         model.addAttribute("diasSemana", diasSemana);
         model.addAttribute("horarios", horarios);
-        return "horarioAdmin/listado";
+        return "fisioterapiaAdmin/listado";
     }
 
     @PostMapping("/guardar")
     public String guardar(Horario horario) {
         horarioService.save(horario);
-        return "redirect:/horarios/admin";
+        return "redirect:/fisioterapia/admin";
     }
 
     @GetMapping("/eliminar/{id_horario}")
@@ -67,7 +67,7 @@ public class HorarioController {
         Horario horario = new Horario();
         horario.setId_horario(idHorario);
         horarioService.delete(horario);
-        return "redirect:/horarios/admin";
+        return "redirect:/fisioterapia/admin";
     }
 
     // Modificar horario
@@ -77,6 +77,6 @@ public class HorarioController {
         horario.setId_horario(idHorario);
         horario = horarioService.getHorario(horario);
         model.addAttribute("horario", horario);
-        return "horarioAdmin/modifica"; // Ajuste a la subcarpeta correcta
+        return "fisioterapiaAdmin/modifica"; // Ajuste a la subcarpeta correcta
     }
 }
