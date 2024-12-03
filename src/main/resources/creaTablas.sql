@@ -47,9 +47,8 @@ INSERT INTO horarios (id_horario, dia, hora, activo) VALUES
 (10,'Miercoles','14:00',1),
 (11,'Sabado','18:00',1);
 
--- Tabla horarios fisioterapia
-DROP TABLE IF EXISTS horariosFisioterapia;
-CREATE TABLE horariosFisioterapia (
+DROP TABLE IF EXISTS horarios_fisioterapia;
+CREATE TABLE horarios_fisioterapia (
   id_horario int NOT NULL AUTO_INCREMENT,
   dia varchar(255) NOT NULL,
   hora varchar(255) NOT NULL,
@@ -57,10 +56,8 @@ CREATE TABLE horariosFisioterapia (
   PRIMARY KEY (id_horario)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-
-
 -- Datos para horarios
-INSERT INTO horariosFisioterapia (id_horario, dia, hora, activo) VALUES
+INSERT INTO horarios_fisioterapia (id_horario, dia, hora, activo) VALUES
 (1,'Jueves','10:30',1),
 (3,'Miercoles','16:00',1),
 (4,'Viernes','15:00',1),
@@ -70,6 +67,8 @@ INSERT INTO horariosFisioterapia (id_horario, dia, hora, activo) VALUES
 (9,'Miercoles','12:00',1),
 (10,'Miercoles','14:00',1),
 (11,'Sabado','18:00',1);
+
+SELECT * FROM horarios_fisioterapia;
 
 -- Tabla membresias
 DROP TABLE IF EXISTS membresias;

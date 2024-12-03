@@ -187,58 +187,70 @@
         </section>
 
 
-        <!-- 5. Listado de horarios -->
-        <section th:fragment="listadoHorarios">
-            <div class="container">
-                <div class="col text-center">
-                    <h4>Horarios de atención de servicio de gimnasio BOHDI WELLNESS</h4>
-                    <p>Para citas de fisioterapia contactar en este <a href="" target="_blank">link</a></p>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 mb-3" th:each="dia : ${diasSemana}">
-                        <div class="card text-center">
-                            <div class="card-header bg-success text-white">
-                                <h5 th:text="${dia}"></h5>
-                                <!-- Botón Gestionar Horarios -->
-                                <div class="dropdown mt-2">
-                                    <button class="btn btn-secondary btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Gestionar horarios
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li th:each="horario : ${horarios}" th:if="${horario.dia} == ${dia}">
-                                            <div class="dropdown-item d-flex justify-content-between align-items-center">
-                                                <span th:text="${horario.hora}"></span>
-                                                <div>
-                                                    <a th:href="@{/horarios/modificar/{id_horario}(id_horario=${horario.id_horario})}" class="btn btn-warning btn-sm mx-1">
-                                                        Editar
-                                                    </a>
-                                                    <a th:href="@{/horarios/eliminar/{id_horario}(id_horario=${horario.id_horario})}" class="btn btn-danger btn-sm">
-                                                        Eliminar
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li th:if="${#lists.isEmpty(horarios.?[dia == dia])}" class="text-muted">
-                                            <span class="dropdown-item">Sin horarios</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <ul class="list-unstyled">
-                                    <li th:each="horario : ${horarios}" th:if="${horario.dia} == ${dia}">
+    <!-- 5. Listado de horarios -->
+<section th:fragment="listadoHorarios">
+    <div class="container">
+        <!-- Información sobre el gimnasio -->
+        <div class="row my-4">
+            <div class="col text-center">
+                <h5>Acerca del gimnasio BOHDI WELLNESS</h5>
+                <p>
+                    Nuestro gimnasio ofrece un ambiente saludable y motivador, diseñado para mejorar tu bienestar físico y mental.
+                    Todas las clases son supervisadas y guiadas por el personal médico de BOHDI WELLNESS, asegurando que cada actividad sea adecuada para tu nivel físico y objetivos personales.
+                </p>
+                <p>
+                    Contamos con equipo de última generación, programas personalizados y un enfoque integral para garantizar tu progreso y seguridad en cada sesión.
+                </p>
+            </div>
+        </div>
+
+        <!-- Listado de horarios -->
+        <div class="row">
+            <div class="col-md-4 mb-3" th:each="dia : ${diasSemana}">
+                <div class="card text-center">
+                    <div class="card-header bg-success text-white">
+                        <h5 th:text="${dia}"></h5>
+                        <!-- Botón Gestionar Horarios -->
+                        <div class="dropdown mt-2">
+                            <button class="btn btn-secondary btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                Gestionar horarios
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li th:each="horario : ${horarios}" th:if="${horario.dia} == ${dia}">
+                                    <div class="dropdown-item d-flex justify-content-between align-items-center">
                                         <span th:text="${horario.hora}"></span>
-                                    </li>
-                                    <li th:if="${#lists.isEmpty(horarios.?[dia == dia])}" class="text-muted">
-                                        Sin horarios
-                                    </li>
-                                </ul>
-                            </div>
+                                        <div>
+                                            <a th:href="@{/horarios/modificar/{id_horario}(id_horario=${horario.id_horario})}" class="btn btn-warning btn-sm mx-1">
+                                                Editar
+                                            </a>
+                                            <a th:href="@{/horarios/eliminar/{id_horario}(id_horario=${horario.id_horario})}" class="btn btn-danger btn-sm">
+                                                Eliminar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li th:if="${#lists.isEmpty(horarios.?[dia == dia])}" class="text-muted">
+                                    <span class="dropdown-item">Sin horarios</span>
+                                </li>
+                            </ul>
                         </div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li th:each="horario : ${horarios}" th:if="${horario.dia} == ${dia}">
+                                <span th:text="${horario.hora}"></span>
+                            </li>
+                            <li th:if="${#lists.isEmpty(horarios.?[dia == dia])}" class="text-muted">
+                                Sin horarios
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
+
 
 
     </body>
