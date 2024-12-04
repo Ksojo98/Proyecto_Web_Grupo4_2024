@@ -75,4 +75,20 @@ public class FisioterapiaController {
         model.addAttribute("fisioterapia", fisioterapia);
         return "fisioterapiaAdmin/modifica";
     }
+
+@GetMapping("/fisioterapia/users")
+public String listarHorariosFisioterapiausers(Model model) {
+    List<Fisioterapia> horarios = fisioterapiaService.getHorarios(true);
+
+    // Ordenar horarios por día y hora
+    horarios = horarios.stream()
+            .sorted(Comparator.comparing(Fisioterapia::getDia).thenComparing(Fisioterapia::getHora))
+            .collect(Collectors.toList());
+
+    List<String> diasSemana = List.of("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado");
+
+    model.addAttribute("horarios", horarios);
+    model.addAttribute("diasSemana", diasSemana);
+    return "fisioterapiaUsuarios/listado"; 
+}
 }
