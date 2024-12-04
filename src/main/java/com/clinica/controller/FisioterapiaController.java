@@ -17,6 +17,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+/*
+5 historias de usuario agregadas
+1. Login - Andres 
+2. Registro - Andres 
+3. Producto - cliente Kevin
+4. Producto - admin Kevin
+5. Fisioterapia - Admin Alex
+6. Fisioterapia - cliente (error 404) Alex
+7. Incorporacion de tablas producto/usuarios/fisioterapia en base de datos - Herberth
+8. Correccion en plantila para diferenciar fisioterapia de gimnasio - Herberth
+
+Pendiente:
+
+1. Solucionar error 404 de punto 6
+2. Crear visualizaciones de usuario/admin (hasRole:"ADMIN")
+3. Crear carrito de compras & pago
+4. Conectar backend de usuarios creados a poder reservar citas de gimnasio/fisioterapia (esto debe actualizar la lista de horarios disponibles con un algoritmo, lista doble?)
+5. Modificaciones esteticas finales
+6. Trabajo escrito IEEE art cientifico
+Semana 14 - 18 de diciembre
+*/
+
 @Controller
 @RequestMapping("/fisioterapia")
 public class FisioterapiaController {
