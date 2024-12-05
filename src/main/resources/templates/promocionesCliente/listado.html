@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/1999/xhtml">
-<head th:replace="~{layout/plantilla :: head}">
-    <title>BOHDI WELLNESS - Listado de Promociones</title>
-    <meta charset="UTF-8"/>
-</head>
-<body> 
-    <header th:replace="~{layout/plantilla :: header}"></header>
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>BOHDI WELLNESS - Listado de Promociones</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body> 
+        <div th:replace="~{cliente/clienteHome :: headerCliente}"></div>
 
-    <section th:replace="~{promocionesCliente/fragmentos :: listadoPromociones(promociones=${promociones})}"></section>
+        <section th:replace="~{promocionesCliente/fragmentos :: listadoPromociones(promociones=${promociones})}"></section>
 
-    <footer th:replace="~{layout/plantilla :: footer}"></footer>
-</body>
+        <footer th:replace="~{layout/plantilla :: footer}"></footer>
+    </body>
 </html>

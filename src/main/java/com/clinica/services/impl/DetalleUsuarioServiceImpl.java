@@ -30,7 +30,7 @@ public class DetalleUsuarioServiceImpl implements DetalleUsuarioService {
         return new User(
                 usuario.getCorreo(),
                 usuario.getContraseña(), // Contraseña cifrada en la BD
-                Collections.singletonList(new SimpleGrantedAuthority(usuario.getRol())) // Rol personalizado
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_"+usuario.getRol())) // Rol personalizado
         );
     }
 }

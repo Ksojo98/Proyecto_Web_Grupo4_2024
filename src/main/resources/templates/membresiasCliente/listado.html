@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/1999/xhtml">
-<head th:replace="~{layout/plantilla :: head}">
-    <title>BOHDI WELLNESS - Membresías Cliente</title>
-</head>
-<body>
-    <header th:replace="~{layout/plantilla :: header}"></header>
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>BOHDI WELLNESS - Membresías Cliente</title>
+    </head>
+    <body>
+        <div th:replace="~{cliente/clienteHome :: headerCliente}"></div>
 
-    <!-- Incluir el fragmento de listado de membresías desde fragmentos.html en templates.membresiasCliente -->
-    <!--Prueba de Comentario-->
-    <section th:replace="~{membresiasCliente/fragmentos :: listadoMembresiasCliente(membresias=${membresias})}"></section>
+        <!-- Incluir el fragmento de listado de membresías desde fragmentos.html en templates.membresiasCliente -->
+        <!--Prueba de Comentario-->
+        <section th:replace="~{membresiasCliente/fragmentos :: listadoMembresiasCliente(membresias=${membresias})}"></section>
 
-    <footer th:replace="~{layout/plantilla :: footer}"></footer>
-</body>
+        <footer th:replace="~{layout/plantilla :: footer}"></footer>
+    </body>
 </html>

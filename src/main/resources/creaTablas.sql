@@ -130,6 +130,8 @@ CREATE TABLE usuarios (
 
 INSERT INTO usuarios (correo, contraseña, rol) 
 VALUES ('admin@bodhiwellness.com', '$2a$12$21sdEU6RL/bbcMkQsHyWAelaOJW6gqIj5fRjwiVQKmRkWgVg5y9pO', 'ADMIN');
+INSERT INTO usuarios (correo, contraseña, rol) 
+VALUES ('pedro@gmail.com', '$2a$12$21sdEU6RL/bbcMkQsHyWAelaOJW6gqIj5fRjwiVQKmRkWgVg5y9pO', 'CLIENTE');
 
 
 CREATE TABLE productos (

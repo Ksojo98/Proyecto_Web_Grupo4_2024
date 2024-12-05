@@ -1,6 +1,5 @@
 package com.clinica;
 
-import com.clinica.services.DetalleUsuarioService;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -9,12 +8,7 @@ import java.io.InputStream;
 import java.util.Locale;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
+
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -24,12 +18,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 @Configuration
 public class ProjectConfig implements WebMvcConfigurer {
 
-    private final DetalleUsuarioService detalleUsuarioService;
-
-    // Constructor para inyectar el servicio
-    public ProjectConfig(DetalleUsuarioService detalleUsuarioService) {
-        this.detalleUsuarioService = detalleUsuarioService;
-    }
+    
 
     // Configuración de Localización
     @Bean
@@ -65,44 +54,5 @@ public class ProjectConfig implements WebMvcConfigurer {
 
         return FirebaseApp.initializeApp(options);
     }
-
-    // Configuración del AuthenticationManager para autenticación personalizada
-    @Bean
-    public AuthenticationManager authManager(HttpSecurity http, PasswordEncoder passwordEncoder) throws Exception {
-        AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        builder.userDetailsService(detalleUsuarioService).passwordEncoder(passwordEncoder);
-        return builder.build();
-    }
-
-
-    // Configuración de Seguridad
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(csrf -> csrf.disable()) // Evita usar métodos obsoletos
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/css/**", "/js/**", "/img/**", "/webjars/**").permitAll()
-                .requestMatchers("/login", "/registro").permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .defaultSuccessUrl("/", true)
-                .failureUrl("/login?error=true")
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout=true")
-                .permitAll()
-            );
-        return http.build();
-    }
-
-
-    // Definición del PasswordEncoder
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Usamos BCrypt para cifrar contraseñas
-    }
+    
 }

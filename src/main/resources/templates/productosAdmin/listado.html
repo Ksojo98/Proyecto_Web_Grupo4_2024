@@ -5,7 +5,7 @@
     <meta charset="UTF-8"/>
 </head>
 <body>
-    <header th:replace="~{layout/plantilla :: header}"></header>
+    <div th:replace="~{admin/adminHome :: headerAdmin}"></div>
 
     <!-- Cargar el fragmento del listado de productos para Admin -->
     <section th:replace="~{productosAdmin/fragmentos :: listadoProductosAdmin(productos=${productos})}"></section>
