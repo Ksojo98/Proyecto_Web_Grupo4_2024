@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org/1999/xhtml">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>BOHDI WELLNESS</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body> 
+
+        <!-- 1. Botón de agregar (llama a un modal) -->
+        <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">   
+                        <button type="button" 
+                                class="btn btn-primary btn-block" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#agregarHorario">
+                            <i class="fas fa-plus"></i> [[#{horario.agregar}]]
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section th:fragment="agregarHorario">
+            <div id="agregarHorario" 
+                 class="modal fade" 
+                 tabindex="-1" 
+                 aria-labelledby="exampleModalLabel" 
+                 aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info text-white">
+                            <h5 class="modal-title">[[#{horario.agregar}]]</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div> 
+                        <form th:action="@{/fisioterapia/guardar}" 
+                              method="POST" 
+                              th:object="${horario}"
+                              class="was-validated">
+                            <div class="modal-body">
+
+                                <!-- Dropdown estilizado para seleccionar el día -->
+                                <div class="mb-3">
+                                    <label for="dia" class="form-label">[[#{horario.dia}]]</label>
+                                    <select class="form-select" name="dia" id="dia" required>
+                                        <option value="" disabled selected>Seleccione un día</option>
+                                        <option value="Lunes">Lunes</option>
+                                        <option value="Martes">Martes</option>
+                                        <option value="Miercoles">Miércoles</option>
+                                        <option value="Jueves">Jueves</option>
+                                        <option value="Viernes">Viernes</option>
+                                        <option value="Sabado">Sábado</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Por favor seleccione un día.
+                                    </div>
+                                </div>
+
+
+                                <!-- Dropdown estilizado para seleccionar la hora -->
+
+                                <div class="mb-3">
+                                    <label for="hora" class="form-label">Hora</label>
+                                    <select class="form-select" name="hora" id="hora" required>
+                                        <option value="" disabled selected>Seleccione una hora</option>
+                                        <option th:each="hour : ${#numbers.sequence(5,21)}" 
+                                                th:value="${hour + ':00'}"
+                                                th:text="${hour < 12 ? hour + ':00 AM' : (hour == 12 ? '12:00 PM' : (hour - 12) + ':00 PM')}">
+                                        </option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Por favor seleccione una hora.
+                                    </div>
+                                </div>
+
+
+                                <!-- Checkbox para marcar como activo -->
+                                <div class="mb-3 form-check">
+                                    <input class="form-check-input" type="checkbox" 
+                                           name="activo" id="activo"/>
+                                    <label class="form-check-label" for="activo">Activo</label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 3. Fragmento para editar un horario -->
+        <section th:fragment="editarHorario">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form th:action="@{/horarios/guardar}" 
+                          method="POST" 
+                          th:object="${horario}"
+                          class="was-validated"
+                          enctype="multipart/form-data">
+                        <!-- Campo oculto para el ID del horario -->
+                        <input type="hidden" name="id_horario" th:field="*{id_horario}" />
+
+                        <!-- Fragmento para los botones de acción -->
+                        <section th:replace="~{horarioAdmin/fragmentos :: botonesEditar}" />
+
+                        <div id="details">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>[[#{accion.actualizar}]]</h4>
+                                            </div>
+                                            <div class="card-body">
+
+                                                <!-- Campo para mostrar el día (solo lectura) -->
+                                                <div class="mb-3">
+                                                    <label for="dia" class="form-label">Día</label>
+                                                    <input type="text" class="form-control" 
+                                                           id="dia" 
+                                                           name="dia" 
+                                                           th:value="${horario.dia}" 
+                                                           readonly />
+                                                </div>
+
+                                                <!-- Dropdown para seleccionar la hora -->
+                                                <div class="mb-3">
+                                                    <label for="hora" class="form-label">Hora</label>
+                                                    <select class="form-select" name="hora" id="hora" required>
+                                                        <option value="" disabled selected>Seleccione una hora</option>
+                                                        <option th:each="hour : ${#numbers.sequence(5,21)}" 
+                                                                th:value="${hour + ':00'}"
+                                                                th:text="${hour < 12 ? hour + ':00 AM' : (hour == 12 ? '12:00 PM' : (hour - 12) + ':00 PM')}">
+                                                        </option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        Por favor seleccione una hora.
+                                                    </div>
+                                                </div>
+
+                                                <!-- Botón Guardar -->
+                                                <div class="col-md-4 d-grid">
+                                                    <button type="submit" class="btn btn-success">
+                                                        <i class="fas fa-check"></i> [[#{accion.guardar}]]
+                                                    </button>
+                                                </div>
+
+                                                <!-- Checkbox para marcar como activo -->
+                                                <div class="mb-3">
+                                                    <label for="activo">[[#{horario.activo}]]</label>
+                                                    <input class="form-check-input" 
+                                                           type="checkbox" 
+                                                           name="activo" 
+                                                           id="activo"
+                                                           th:field="*{activo}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Botones para edición de horarios -->
+        <section th:fragment="botonesEditar">
+            <div class="container py-4 mb-4 bg-light">
+                <div class="row">
+                    <div class="col-md-4 d-grid">
+                        <a th:href="@{/fisioterapia/admin}" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <section th:fragment="listadoHorarios">
+            <div class="container">
+
+                <!-- Información sobre fisioterapia -->
+                <div class="row my-4">
+                    <div class="col-md-6">
+                        <h5>¿Qué es la fisioterapia?</h5>
+                        <p>
+                            La fisioterapia es una disciplina de la salud que utiliza métodos físicos, técnicas manuales y ejercicios terapéuticos para tratar y prevenir lesiones o enfermedades que afectan el movimiento y la función del cuerpo.
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Beneficios de la fisioterapia</h5>
+                        <ul>
+                            <li>Alivia el dolor muscular y articular.</li>
+                            <li>Mejora la movilidad y la flexibilidad.</li>
+                            <li>Previene lesiones futuras.</li>
+                            <li>Ayuda en la recuperación de cirugías y lesiones deportivas.</li>
+                            <li>Contribuye al bienestar general y a la calidad de vida.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Información adicional -->
+                <div class="row mb-4">
+                    <div class="col text-center">
+                        <h5>Información adicional</h5>
+                        <p>
+                            Nuestro servicio de fisioterapia está diseñado para adaptarse a las necesidades individuales de cada cliente. Contamos con profesionales altamente capacitados y las mejores instalaciones para garantizar su recuperación y bienestar.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Listado de horarios -->
+                <div class="row">
+                    <div class="col-md-4 mb-3" th:each="dia : ${diasSemana}">
+                        <div class="card text-center">
+                            <div class="card-header bg-success text-white">
+                                <h5 th:text="${dia}"></h5>
+                                <!-- Botón Gestionar Horarios -->
+                                <div class="dropdown mt-2">
+                                    <button class="btn btn-secondary btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Gestionar horarios
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li th:each="horario : ${horarios}" th:if="${horario.dia} == ${dia}">
+                                            <div class="dropdown-item d-flex justify-content-between align-items-center">
+                                                <span th:text="${horario.hora}"></span>
+                                                <div>
+                                                    <a th:href="@{/fisioterapia/modificar/{id_horario}(id_horario=${horario.id_horario})}" class="btn btn-warning btn-sm mx-1">
+                                                        Editar
+                                                    </a>
+                                                    <a th:href="@{/fisioterapia/eliminar/{id_horario}(id_horario=${horario.id_horario})}" class="btn btn-danger btn-sm">
+                                                        Eliminar
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li th:if="${#lists.isEmpty(horarios.?[dia == dia])}" class="text-muted">
+                                            <span class="dropdown-item">Sin horarios</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled">
+                                    <li th:each="horario : ${horarios}" th:if="${horario.dia} == ${dia}">
+                                        <span th:text="${horario.hora}"></span>
+                                    </li>
+                                    <li th:if="${#lists.isEmpty(horarios.?[dia == dia])}" class="text-muted">
+                                        Sin horarios
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    </body>
+</html>

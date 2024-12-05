@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/1999/xhtml">
+<head th:fragment="head">
+    <title>BOHDI WELLNESS - Membresías Admin</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+    <section th:fragment="listadoMembresiasAdmin(membresias)">
+        <div class="container my-5">
+            <h2 class="text-center text-success mb-4">Administración de Planes de Salud</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered text-center">
+                    <thead>
+                        <tr>
+                            <th>Beneficios</th>
+                            <th th:each="membresia : ${membresias}" th:text="${membresia.nombre}">Nombre del Plan</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td><b>Escoge el plan de tu preferencia</b></td>
+                            <td th:each="membresia : ${membresias}">
+                                <a th:href="@{'/membresias/admin/editar/' + ${membresia.idMembresia}}" class="btn btn-success">Editar</a>
+                                
+                                <!-- Cambiar el enlace de eliminación a un formulario POST -->
+                                <form th:action="@{'/membresias/admin/eliminar/' + ${membresia.idMembresia}}" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger"
+                                            onclick="return confirm('¿Estás seguro de que deseas eliminar esta membresía?');">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr th:if="${membresias.size() < 3}">
+                            <td colspan="3" class="text-center">
+                                <a th:href="@{'/membresias/admin/agregar'}" class="btn btn-primary">Agregar</a>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

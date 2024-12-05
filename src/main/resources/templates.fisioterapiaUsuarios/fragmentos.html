@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org/1999/xhtml">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>BOHDI WELLNESS</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body> 
+
+
+
+        <section th:fragment="listadoHorarios">
+            <div class="container">
+
+                <!-- Información sobre fisioterapia -->
+                <div class="row my-4">
+                    <div class="col-md-6">
+                        <h5>¿Qué es la fisioterapia?</h5>
+                        <p>
+                            La fisioterapia es una disciplina de la salud que utiliza métodos físicos, técnicas manuales y ejercicios terapéuticos para tratar y prevenir lesiones o enfermedades que afectan el movimiento y la función del cuerpo.
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Beneficios de la fisioterapia</h5>
+                        <ul>
+                            <li>Alivia el dolor muscular y articular.</li>
+                            <li>Mejora la movilidad y la flexibilidad.</li>
+                            <li>Previene lesiones futuras.</li>
+                            <li>Ayuda en la recuperación de cirugías y lesiones deportivas.</li>
+                            <li>Contribuye al bienestar general y a la calidad de vida.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Información adicional -->
+                <div class="row mb-4">
+                    <div class="col text-center">
+                        <h5>Información adicional</h5>
+                        <p>
+                            Nuestro servicio de fisioterapia está diseñado para adaptarse a las necesidades individuales de cada cliente. Contamos con profesionales altamente capacitados y las mejores instalaciones para garantizar su recuperación y bienestar.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Listado de horarios -->
+                <div class="row">
+                    <div class="col-md-4 mb-3" th:each="dia : ${diasSemana}">
+                        <div class="card text-center">
+                            <div class="card-header bg-success text-white">
+                                <h5 th:text="${dia}"></h5>
+                                <!-- Botón Gestionar Horarios -->
+                                <div class="dropdown mt-2">
+                                    <button class="btn btn-secondary btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Gestionar horarios
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li th:each="horario : ${horarios}" th:if="${horario.dia} == ${dia}">
+                                            <div class="dropdown-item d-flex justify-content-between align-items-center">
+                                                <span th:text="${horario.hora}"></span>
+                                                <div>
+                                                    <a th:href="@{/fisioterapia/modificar/{id_horario}(id_horario=${horario.id_horario})}" class="btn btn-warning btn-sm mx-1">
+                                                        Editar
+                                                    </a>
+                                                    <a th:href="@{/fisioterapia/eliminar/{id_horario}(id_horario=${horario.id_horario})}" class="btn btn-danger btn-sm">
+                                                        Eliminar
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li th:if="${#lists.isEmpty(horarios.?[dia == dia])}" class="text-muted">
+                                            <span class="dropdown-item">Sin horarios</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled">
+                                    <li th:each="horario : ${horarios}" th:if="${horario.dia} == ${dia}">
+                                        <span th:text="${horario.hora}"></span>
+                                    </li>
+                                    <li th:if="${#lists.isEmpty(horarios.?[dia == dia])}" class="text-muted">
+                                        Sin horarios
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    </body>
+</html>

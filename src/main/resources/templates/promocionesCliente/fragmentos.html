@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/1999/xhtml">
+<head th:replace="~{layout/plantilla :: head}">
+    <title>BOHDI WELLNESS - Fragmentos</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+
+    <!-- Fragmento de listado de promociones -->
+    <section th:fragment="listadoPromociones(promociones)">
+        <div class="container my-5">
+            <h2 class="text-center text-success mb-4">¡Descuentos pensados en tu salud!</h2>
+
+            <!-- Itera sobre las promociones obtenidas desde la base de datos -->
+            <div th:each="promocion : ${promociones}">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title text-center" th:text="${promocion.titulo}">Título de Promoción</h3>
+                        <div class="row text-center">
+                            <div class="col-md-4 offset-md-4">
+                                <img th:src="@{${promocion.imagen}}" class="img-fluid mb-2" th:alt="${promocion.titulo}">
+                                <p th:text="${promocion.descripcion}">Descripción de la promoción</p>
+                            </div>
+                        </div>
+                        <p class="text-center text-muted mt-3">Por tan solo...</p>
+                        <h4 class="text-center text-danger" th:text="${promocion.precio}">Precio de la promoción</h4>
+                        <div class="text-center">
+                            <a href="#" class="btn btn-success mt-3">¡Aprovechar oportunidad!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
