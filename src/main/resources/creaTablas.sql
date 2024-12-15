@@ -120,18 +120,23 @@ SET UNIQUE_CHECKS=1;
 SET SQL_NOTES=1;
 
 
-
 CREATE TABLE usuarios (
   id_usuario INT AUTO_INCREMENT PRIMARY KEY,
   correo VARCHAR(100) NOT NULL UNIQUE,
   contraseña VARCHAR(255) NOT NULL,
-  rol ENUM('CLIENTE', 'ADMIN') NOT NULL DEFAULT 'CLIENTE'
-);
+  rol ENUM('ROLE_CLIENTE', 'ROLE_ADMIN') NOT NULL DEFAULT 'ROLE_CLIENTE',
+  activo TINYINT(1) DEFAULT 0,
+  activation_token VARCHAR(255) DEFAULT NULL,
+  token_recuperacion VARCHAR(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO usuarios (correo, contraseña, rol) 
-VALUES ('admin@bodhiwellness.com', '$2a$12$21sdEU6RL/bbcMkQsHyWAelaOJW6gqIj5fRjwiVQKmRkWgVg5y9pO', 'ADMIN');
-INSERT INTO usuarios (correo, contraseña, rol) 
-VALUES ('pedro@gmail.com', '$2a$12$21sdEU6RL/bbcMkQsHyWAelaOJW6gqIj5fRjwiVQKmRkWgVg5y9pO', 'CLIENTE');
+VALUES 
+('admin@bodhiwellness.com', '$2a$12$21sdEU6RL/bbcMkQsHyWAelaOJW6gqIj5fRjwiVQKmRkWgVg5y9pO', 'ROLE_ADMIN'),  -- Contraseña: Admin123
+('andgr1987@hotmail.com', '$2a$10$/aBOBwBmhrc4pLqAXBGsY.Vd6XicF0ttX9zUK9CPQuVllvz8nNls.', 'ROLE_CLIENTE');  -- Contraseña: Mariobros1987
+
+ select * from usuarios;
+ 
 
 
 CREATE TABLE productos (
@@ -150,4 +155,74 @@ VALUES
 ('Producto 3', 'Descripción del producto 3', 30000.00, 'https://via.placeholder.com/150', 10),
 ('Producto 4', 'Descripción del producto 4', 5000.00, 'https://via.placeholder.com/150', 25),
 ('Producto 5', 'Descripción del producto 5', 20000.00, 'https://via.placeholder.com/150', 7),
-('Producto 6', 'Descripción del producto 6', 15000.00, 'https://via.placeholder.com/150', 5);
+('Producto 6', 'Descripción del producto 6', 15000.00, 'https://via.placeholder.com/150', 0);
+
+CREATE TABLE factura (
+  id_factura INT NOT NULL AUTO_INCREMENT,
+  id_usuario INT NOT NULL,
+  fecha date,  
+  total double,
+  estado int,
+  PRIMARY KEY (id_factura),
+  foreign key fk_factura_usuario (id_usuario) references usuarios(id_usuario)  
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+CREATE TABLE venta (
+  id_venta INT NOT NULL AUTO_INCREMENT,
+  id_factura INT NOT NULL,
+  id_producto INT NOT NULL,
+  precio double, 
+  cantidad int,
+  PRIMARY KEY (id_venta),
+  foreign key fk_ventas_factura (id_factura) references factura(id_factura),
+  foreign key fk_ventas_producto (id_producto) references productos(id_producto)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+INSERT INTO factura (id_factura, id_usuario, fecha, total, estado) VALUES
+(1,1,'2024-06-05',211560,2),
+(2,2,'2024-06-07',554340,2),
+(4,1,'2024-08-15',244140,1),
+(5,2,'2024-09-17',414800,1),
+(3, 1, '2024-08-01', 500000, 1);
+
+INSERT INTO venta (id_venta, id_factura, id_producto, precio, cantidad) VALUES
+(1, 1, 5, 45000, 3),
+(2, 1, 3, 15780, 2),
+(3, 1, 6, 15000, 3),
+(4, 2, 5, 45000, 1),
+(5, 2, 6, 154000, 3),
+(6, 2, 3, 15780, 3),
+(7, 4, 6, 154000, 1), -- Cambiado de 3 a 4
+(8, 4, 1, 57000, 1), -- Cambiado de 3 a 4
+(9, 4, 2, 330000, 2), -- Cambiado de 3 a 4
+(10, 1, 1, 57000, 2),
+(11, 1, 2, 27600, 3),
+(12, 1, 3, 15780, 3);
+
+
+CREATE TABLE constante (
+    id_constante INT AUTO_INCREMENT NOT NULL,
+    atributo VARCHAR(25) NOT NULL,
+    valor VARCHAR(150) NOT NULL,
+	PRIMARY KEY (id_constante))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+INSERT INTO constante (atributo,valor) VALUES 
+
+('dominio','localhost'),
+('certificado','c:/cert'),
+('dolar','520.75'),
+('paypal.client-id','AUjOjw5Q1I0QLTYjbvRS0j4Amd8xrUU2yL9UYyb3TOTcrazzd3G3lYRc6o7g9rOyZkfWEj2wxxDi0aRz'),
+('paypal.client-secret','EMdb08VRlo8Vusd_f4aAHRdTE14ujnV9mCYPovSmXCquLjzWd_EbTrRrNdYrF1-C4D4o-57wvua3YD2u'),
+('paypal.mode','sandbox'),
+('urlPaypalCancel','http://localhost/payment/cancel'),
+('urlPaypalSuccess','http://localhost/payment/success');
+
+SELECT id_usuario FROM usuarios;

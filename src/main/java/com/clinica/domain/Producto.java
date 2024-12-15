@@ -13,7 +13,8 @@ public class Producto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idProducto;
+    //private Integer idProducto;
+    private Long idProducto;
 
     private String nombre;
     private String descripcion;

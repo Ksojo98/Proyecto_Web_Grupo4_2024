@@ -12,11 +12,28 @@ function readURL(input) {
     }
 }
 
+
 /* La siguiente función se utiliza para activar la cantidad de elementos seleccionados
  * En el carrito de compras utilizando un llamado "ajax" */
-function addCard(formulario) {
-    var valor = formulario.elements[0].value;
-    var url = '/carrito/agregar';
-    url = url + '/' + valor;
-    $("#resultsBlock").load(url);
+function addCart(formulario) {
+    // Obtener el ID del producto desde el formulario
+    var idProducto = formulario.elements["idProducto"].value;
+
+    // Construir la ruta para la solicitud
+    var ruta = '/carrito/agregar/' + idProducto;
+
+    // Mostrar un mensaje de carga mientras se procesa
+    alert("Añadiendo producto al carrito: " + idProducto);
+
+    // Llamada AJAX para enviar la solicitud al servidor
+    $.get(ruta, function(response) {
+        // Si la solicitud es exitosa, actualizamos el carrito
+        $("#carrito").html(response);
+        console.log("Producto añadido al carrito correctamente.");
+    }).fail(function(xhr) {
+        // Si ocurre un error, mostramos un mensaje
+        alert("Error al añadir producto al carrito: " + xhr.statusText);
+    });
 }
+
+

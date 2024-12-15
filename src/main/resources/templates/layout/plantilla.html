@@ -18,7 +18,7 @@
         <header th:fragment="header" class="header">
             <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f8f9fa;"> 
                 <div class="container">
-                    <a th:href="@{/default}" class="navbar-brand">
+                    <a th:href="@{/}" class="navbar-brand">
                         <img src="https://firebasestorage.googleapis.com/v0/b/techshop-fbf53.appspot.com/o/techshop%2Flogos%2Fnuevo_logo.PNG?alt=media&token=093b9513-3d2e-40d0-b4cc-ca769edc610f" alt="Bodhi Wellness Logo" width="100" height="45" class="d-inline-block align-top"> <!-- Aumenta el tamaño aquí -->
                     </a>
                     <button class="navbar-toggler"
@@ -28,17 +28,23 @@
                     </button>
                     <div id="navbarCollapse" class="collapse navbar-collapse">
                         <ul class="navbar-nav ms-auto">
-                            <li class="nav-item dropdown px-2">
+
+                            <!-- Fisioterapia -->
+                            <li class="nav-item dropdown px-2" sec:authorize="hasRole('ADMIN')">
                                 <a class="nav-link dropdown-toggle text-success fw-bold" href="#" id="citasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Fisioterapia
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="citasDropdown">
-                                    <li><a class="dropdown-item" th:href="@{/fisioterapia/admin}">Fisioterepia - Admin</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/fisioterapia/users}">Fisioterepia - Cliente</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/fisioterapia/admin}">Fisioterapia - Admin</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/fisioterapia/users}">Fisioterapia - Cliente</a></li>
                                 </ul>
                             </li>
+                            <li class="nav-item" sec:authorize="hasRole('CLIENTE')">
+                                <a class="nav-link text-success fw-bold" th:href="@{/fisioterapia/users}">Fisioterapia</a>
+                            </li>
 
-                            <li class="nav-item dropdown px-2">
+                            <!-- Gimnasio -->
+                            <li class="nav-item dropdown px-2" sec:authorize="hasRole('ADMIN')">
                                 <a class="nav-link dropdown-toggle text-success fw-bold" href="#" id="horariosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Gimnasio
                                 </a>
@@ -47,9 +53,12 @@
                                     <li><a class="dropdown-item" th:href="@{/horarios/usuarios}">Gimnasio - Usuarios</a></li>
                                 </ul>
                             </li>
+                            <li class="nav-item" sec:authorize="hasRole('CLIENTE')">
+                                <a class="nav-link text-success fw-bold" th:href="@{/horarios/usuarios}">Gimnasio</a>
+                            </li>
 
-
-                            <li class="nav-item dropdown px-2">
+                            <!-- Promociones -->
+                            <li class="nav-item dropdown px-2" sec:authorize="hasRole('ADMIN')">
                                 <a class="nav-link dropdown-toggle text-success fw-bold" href="#" id="promocionesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Promociones
                                 </a>
@@ -58,8 +67,12 @@
                                     <li><a class="dropdown-item" th:href="@{/promociones/cliente}">Promociones - Cliente</a></li>
                                 </ul>
                             </li>
+                            <li class="nav-item" sec:authorize="hasRole('CLIENTE')">
+                                <a class="nav-link text-success fw-bold" th:href="@{/promociones/cliente}">Promociones</a>
+                            </li>
 
-                            <li class="nav-item dropdown px-2">
+                            <!-- Productos -->
+                            <li class="nav-item dropdown px-2" sec:authorize="hasRole('ADMIN')">
                                 <a class="nav-link dropdown-toggle text-success fw-bold" href="#" id="productosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Productos
                                 </a>
@@ -68,18 +81,12 @@
                                     <li><a class="dropdown-item" th:href="@{/productos/cliente}">Productos - Cliente</a></li>
                                 </ul>
                             </li>
-
-                            <li class="nav-item dropdown px-2">
-                                <a class="nav-link dropdown-toggle text-success fw-bold" href="#" id="carritoDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Carrito
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="carritoDropdown">
-                                    <li><a class="dropdown-item" th:href="@{/carrito/admin}">Carrito - Admin</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/carrito/cliente}">Carrito - Cliente</a></li>
-                                </ul>
+                            <li class="nav-item" sec:authorize="hasRole('CLIENTE')">
+                                <a class="nav-link text-success fw-bold" th:href="@{/productos/cliente}">Productos</a>
                             </li>
 
-                            <li class="nav-item dropdown px-2">
+                            <!-- Membresías -->
+                            <li class="nav-item dropdown px-2" sec:authorize="hasRole('ADMIN')">
                                 <a class="nav-link dropdown-toggle text-success fw-bold" href="#" id="membresiasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Membresías
                                 </a>
@@ -88,12 +95,12 @@
                                     <li><a class="dropdown-item" th:href="@{/membresias/cliente}">Membresías - Cliente</a></li>
                                 </ul>
                             </li>
-
+                            <li class="nav-item" sec:authorize="hasRole('CLIENTE')">
+                                <a class="nav-link text-success fw-bold" th:href="@{/membresias/cliente}">Membresías</a>
+                            </li>
                         </ul>
-                        <a th:href="@{/notificaciones}" class="nav-link">
-                            <i class="fas fa-bell text-success"></i>
-                        </a>
                     </div>
+
                 </div>
             </nav>
         </header>

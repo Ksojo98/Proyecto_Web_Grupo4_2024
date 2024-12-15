@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/1999/xhtml">
+<head th:replace="~{layout/plantilla_cliente :: head}">
+    <title>BOHDI WELLNESS - Membresías Cliente</title>
+</head>
+<body>
+    <header th:replace="~{layout/plantilla_cliente :: header}"></header>
+
+    <!-- Fragmento del listado de membresías -->
+    <section th:replace="~{membresiasCliente/fragmentos :: listadoMembresiasCliente(membresias=${membresias})}"></section>
+
+    <footer th:replace="~{layout/plantilla_cliente :: footer}"></footer>
+</body>
+</html>

@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductoServiceImpl implements ProductoService {
@@ -24,9 +25,14 @@ public class ProductoServiceImpl implements ProductoService {
         return productoDao.findAll();
     }
 
-    @Override
-    public Producto obtenerProductoPorId(Integer id) {
+    public Producto obtenerProductoPorId(long id) {
         return productoDao.findById(id).orElse(null);
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Producto getProducto(Producto producto) {
+        return productoDao.findById(producto.getIdProducto()).orElse(null);
     }
 
     @Override
@@ -41,8 +47,7 @@ public class ProductoServiceImpl implements ProductoService {
         productoDao.save(producto);
     }
 
-    @Override
-    public void eliminarProducto(Integer id) {
+    public void eliminarProducto(long id) {
         Optional<Producto> producto = productoDao.findById(id);
         producto.ifPresent(p -> {
             eliminarImagenFirebase(p.getIdProducto()); // Eliminamos la imagen de Firebase
@@ -50,7 +55,7 @@ public class ProductoServiceImpl implements ProductoService {
         });
     }
 
-    private String subirImagenFirebase(MultipartFile file, Integer productoId) throws IOException {
+    private String subirImagenFirebase(MultipartFile file, Long productoId) throws IOException {
         String fileName = "productos/" + productoId + "_" + file.getOriginalFilename();
         StorageClient.getInstance().bucket().create(fileName, file.getBytes(), file.getContentType());
         return String.format("https://firebasestorage.googleapis.com/v0/b/%s/o/%s?alt=media",
@@ -58,11 +63,21 @@ public class ProductoServiceImpl implements ProductoService {
                 fileName.replace("/", "%2F"));
     }
 
-    private void eliminarImagenFirebase(Integer productoId) {
+    private void eliminarImagenFirebase(Long productoId) {
         String fileName = "productos/" + productoId;
         Blob blob = StorageClient.getInstance().bucket().get(fileName);
         if (blob != null && blob.exists()) {
             blob.delete();
         }
+    }
+
+    @Override
+    public Producto obtenerProductoPorId(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void eliminarProducto(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

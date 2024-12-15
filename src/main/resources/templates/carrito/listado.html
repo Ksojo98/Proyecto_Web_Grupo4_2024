@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>BOHDI WELLNESS</title>
+    </head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"/>
+
+        <section th:replace="~{carrito/fragmentos :: listadoCarrito}"/>
+        <div class="container mt-3">
+            <div id="carrito" th:replace="~{carrito/fragmentos :: verCarrito}"></div>
+        </div>
+        <footer th:replace="~{layout/plantilla :: footer}"/>
+
+    </body>
+</html>
+

@@ -27,4 +27,14 @@ public class Usuario {
 
     @Column(nullable = false)
     private String rol = "CLIENTE"; // Valor predeterminado
+    
+    @Column(nullable = false)
+    private boolean activo = false; // Valor predeterminado: cuentas inactivas hasta activación
+
+    // Nuevo campo: activationToken
+    @Column(name = "activation_token")
+    private String activationToken;
+    
+    @Column(name = "token_recuperacion")
+    private String tokenRecuperacion;
 }

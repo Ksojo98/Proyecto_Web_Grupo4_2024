@@ -1,22 +1,18 @@
 <!DOCTYPE html>
 <!--
-Mi primera página dinamica
+Mi primera página dinámica
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:th="http://www.thymeleaf.org/1999/xhtml" 
-      >
-    <head th:replace="~{layout/plantilla :: head}">
+      xmlns:th="http://www.thymeleaf.org/1999/xhtml">
+    <head th:replace="~{layout/plantilla_cliente :: head}">
         <title>BOHDI WELLNESS</title>
         <meta charset="UTF-8"/>
-
     </head>
     <body> 
-        <div th:replace="~{cliente/clienteHome :: headerCliente}"></div>
+        <header th:replace="~{layout/plantilla_cliente :: header}"></header>
 
-        <section th:replace="~{horarioCliente/fragmentos :: listadoHorarios}"/>
+        <section th:replace="~{horarioCliente/fragmentos :: listadoHorarios}"></section>
 
-        <footer th:replace="~{layout/plantilla :: footer}">  </footer>
-
-
+        <footer th:replace="~{layout/plantilla_cliente :: footer}"></footer>
     </body>
 </html>

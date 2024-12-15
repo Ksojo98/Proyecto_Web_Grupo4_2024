@@ -4,7 +4,7 @@
     <title>BOHDI WELLNESS - Membresías Admin</title>
 </head>
 <body>
-    <div th:replace="~{admin/adminHome :: headerAdmin}"></div>
+    <header th:replace="~{layout/plantilla :: header}"></header>
 
     <!-- Incluir el fragmento de listado de membresías de administración -->
     <section th:replace="~{membresiasAdmin/fragmentos :: listadoMembresiasAdmin(membresias=${membresias})}"></section>
