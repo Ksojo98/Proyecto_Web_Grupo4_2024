@@ -68,7 +68,6 @@ INSERT INTO horarios_fisioterapia (id_horario, dia, hora, activo) VALUES
 (10,'Miercoles','14:00',1),
 (11,'Sabado','18:00',1);
 
-SELECT * FROM horarios_fisioterapia;
 
 -- Tabla membresias
 DROP TABLE IF EXISTS membresias;
@@ -134,10 +133,8 @@ INSERT INTO usuarios (correo, contraseña, rol)
 VALUES 
 ('admin@bodhiwellness.com', '$2a$12$21sdEU6RL/bbcMkQsHyWAelaOJW6gqIj5fRjwiVQKmRkWgVg5y9pO', 'ROLE_ADMIN'),  -- Contraseña: Admin123
 ('andgr1987@hotmail.com', '$2a$10$/aBOBwBmhrc4pLqAXBGsY.Vd6XicF0ttX9zUK9CPQuVllvz8nNls.', 'ROLE_CLIENTE');  -- Contraseña: Mariobros1987
-
- select * from usuarios;
- 
-
+UPDATE usuarios SET activo = 1 WHERE id_usuario = 1;
+UPDATE usuarios SET activo = 1 WHERE id_usuario = 2;
 
 CREATE TABLE productos (
     id_producto INT AUTO_INCREMENT PRIMARY KEY,
@@ -157,6 +154,7 @@ VALUES
 ('Producto 5', 'Descripción del producto 5', 20000.00, 'https://via.placeholder.com/150', 7),
 ('Producto 6', 'Descripción del producto 6', 15000.00, 'https://via.placeholder.com/150', 0);
 
+
 CREATE TABLE factura (
   id_factura INT NOT NULL AUTO_INCREMENT,
   id_usuario INT NOT NULL,
@@ -168,7 +166,6 @@ CREATE TABLE factura (
 )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
-
 
 CREATE TABLE venta (
   id_venta INT NOT NULL AUTO_INCREMENT,
@@ -198,9 +195,9 @@ INSERT INTO venta (id_venta, id_factura, id_producto, precio, cantidad) VALUES
 (4, 2, 5, 45000, 1),
 (5, 2, 6, 154000, 3),
 (6, 2, 3, 15780, 3),
-(7, 4, 6, 154000, 1), -- Cambiado de 3 a 4
-(8, 4, 1, 57000, 1), -- Cambiado de 3 a 4
-(9, 4, 2, 330000, 2), -- Cambiado de 3 a 4
+(7, 4, 6, 154000, 1),
+(8, 4, 1, 57000, 1), 
+(9, 4, 2, 330000, 2),
 (10, 1, 1, 57000, 2),
 (11, 1, 2, 27600, 3),
 (12, 1, 3, 15780, 3);
@@ -224,5 +221,3 @@ INSERT INTO constante (atributo,valor) VALUES
 ('paypal.mode','sandbox'),
 ('urlPaypalCancel','http://localhost/payment/cancel'),
 ('urlPaypalSuccess','http://localhost/payment/success');
-
-SELECT id_usuario FROM usuarios;
